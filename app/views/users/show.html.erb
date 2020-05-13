@@ -9,14 +9,14 @@
       </td>
       <td>指定勤務時間：<%= format_basic_info(@user.work_time) %></td>
       <td>基本時間：<%= format_basic_info(@user.basic_time) %></td>
-      <td>月初日：<%= l(@first_day, format: :short) %></td>
+      <td>初日：<%= l(@first_day, format: :short) %></td>
     </tr>
 
     <tr>
       <td>所属：<%= @user.department.present? ? @user.department : "未所属" %></td>
       <td>名前：<%= @user.name %></td>
       <td>出勤日数：<%= @worked_sum %>日</td>
-      <td>月末日：<%= l(@last_day, format: :short) %></td>
+      <td>締め：<%= l(@last_day, format: :short) %></td>
     </tr>
   </table>
 </div>
@@ -29,6 +29,7 @@
   <table class="table table-bordered table-condensed table-hover" id="table-attendances">
     <thead>
       <tr>
+        <th rowspan="2">残業申請</th>
         <th rowspan="2">日付</th>
         <th rowspan="2">曜日</th>
         <th colspan="3">出社</th>
@@ -49,6 +50,9 @@
       <% @attendances.each do |day| %>
         
         <tr>
+          <td>
+            <%= link_to "残業申請", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
+          </td>
           <td><%= l(day.worked_on, format: :short) %></td>
           <td>
             <% if day.worked_on.wday == 6 %>
@@ -63,14 +67,14 @@
           <td><%= format_min(day.started_at) if day.started_at.present? %></td>
           <td>
             <% if (btn_text = attendance_state(day)) && day.started_at.nil? %>
-              <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
+              <%= link_to "#{btn_text}", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
             <% end %>
           </td>
           <td><%= format_hour(day.finished_at) if day.finished_at.present? %></td>
           <td><%= format_min(day.finished_at) if day.finished_at.present? %></td>
           <td>
             <% if (btn_text = attendance_state(day)) && day.started_at.present? && day.finished_at.nil? %>
-              <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
+              <%= link_to "#{btn_text}", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
             <% end %>
           </td>
           <td>
