@@ -3,41 +3,58 @@
   <table class="table table-bordered table-condensed user-table">
     <tr>
       <td>
-        <%= link_to "⇦", user_path(date: @first_day.prev_month), class: "btn btn-info" %>
-        【<%= l(@first_day, format: :middle) %>】勤怠管理表
-        <%= link_to "⇨", user_path(date: @first_day.next_month), class: "btn btn-info" %>
+        <%= link_to "⇦", user_path(date: @first_day.prev_month), class: "btn btn-primary" %>
+        【<%= l(@first_day, format: :middle) %>】時間管理表
+        <%= link_to "⇨", user_path(date: @first_day.next_month), class: "btn btn-primary" %>
       </td>
-      <td>指定勤務時間：<%= format_basic_info(@user.work_time) %></td>
+      <td>指定勤務開始時間：<%= format_basic_info(@user.work_time) %></td>
       <td>基本時間：<%= format_basic_info(@user.basic_time) %></td>
       <td>初日：<%= l(@first_day, format: :short) %></td>
     </tr>
 
     <tr>
       <td>所属：<%= @user.department.present? ? @user.department : "未所属" %></td>
-      <td>名前：<%= @user.name %></td>
+      <td>氏名：<%= @user.name %></td>
+      <td>コード</td>
       <td>出勤日数：<%= @worked_sum %>日</td>
       <td>締め：<%= l(@last_day, format: :short) %></td>
     </tr>
   </table>
 </div>
 
-<div class="btn-users-show">
-  <%= link_to "1ヶ月の勤怠編集へ", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-success" %>
+<div>
+  <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
+  <%= link_to "CSV出力", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
+</div>
+<div>
+  <%= link_to "勤怠修正ログ（承認済み）", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
 </div>
 
 <div>
   <table class="table table-bordered table-condensed table-hover" id="table-attendances">
     <thead>
       <tr>
-        <th rowspan="2">残業申請</th>
-        <th rowspan="2">日付</th>
-        <th rowspan="2">曜日</th>
-        <th colspan="3">出社</th>
-        <th colspan="3">退社</th>
-        <th rowspan="2">在社時間</th>
-        <th rowspan="2">備考</th>
+        <!--rowspan:縦結合、colspan：横結合-->
+        <th rowspan=4>残業申請</th>
+        <th rowspan=4>日付</th>
+        <th rowspan=4>曜日</th>
+        <th colspan=8>【実績】</th>
+        <th colspan=5>所定外勤務</th>
       </tr>
       <tr>
+        <th colspan=3>出社</th>
+        <th colspan=3>退社</th>
+        <th rowspan=2>在社時間</th>
+        <th rowspan=2>備考</th>
+        <th colspan=2>終了予定時間</th>
+        <th rowspan=2>時間外時間</th>
+        <th rowspan=2>業務処理内容</th>
+        <th rowspan=2>支持者確認㊞</th>
+      </tr>
+      <tr>
+        <th>時</th>
+        <th>分</th>
+        <th></th>
         <th>時</th>
         <th>分</th>
         <th></th>
@@ -84,6 +101,11 @@
             <% end %>
           </td>
           <td><%= day.note %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       <% end %>
     </tbody>
@@ -91,9 +113,14 @@
     <tfoot>
       <!--rowspan:縦結合、colspan：横結合-->
       <tr>
+        <td rowspan=2></td>
         <td colspan="2">累計日数</td>
         <td colspan="6">総合勤務時間</td>
         <td colspan="3">累計在社時間</td>
+        <td rowspan=2></td>
+        <td rowspan=2></td>
+        <td rowspan=2></td>
+        <td rowspan=2></td>
       </tr>
       <tr>
         <td colspan="2"><%= @attendances.count %></td>
