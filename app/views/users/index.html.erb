@@ -1,19 +1,6 @@
 <% provide(:title, 'All Users') %>
-  <% if params[:search].blank? %>
-    <h1>全てのユーザ一</h1>
-  <% else %>
-    <h1>検索結果</h1>
-  <% end %>
-
-<div class="row container">
-  <div class="col-md-4 col-md-offset-8">
-    <p>ユーザ名検索</p>
-    <%= form_tag(users_path, :method => 'get' ) do %>
-      <%= text_field_tag :search %>
-      <%= submit_tag '検索', :name => nil, class: "btn btn-primary" %>
-    <% end %>
-  </div>
-</div>
+  
+   <h1>全てのユーザ一</h1>
 
 <div class="col-md-10 col-md-offset-1">
   <%= will_paginate %>
@@ -58,3 +45,5 @@
 </div>
 
 <div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+#git hub
