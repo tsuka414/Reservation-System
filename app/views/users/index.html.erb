@@ -2,7 +2,9 @@
   <h1>全てのユーザ一</h1>
 
 <div class="csv_holder">
-  
+  <div>
+    <%= link_to "CSV出力", users_path(format: :csv), class: "btn btn-primary" %>
+  </div>
 </div>
 
 
@@ -27,9 +29,7 @@
               </h4>
               </div>
                 <div id="collapse<%=user.id %>" class="panel-collapse collapse">
-                  <ul class="list-gruop">
-                    
-                  </ul>
+                  <!--<div class="panel-bpdy">%= render 'user', { user: user } %></div>-->
                 </div>
               </div>
               </div>
