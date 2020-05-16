@@ -9,7 +9,7 @@
   <!--%= form_tag import_users_path, method: :post, multipart:  true do |f| %>-->
     <div class="search_item">
       <%= submit_tag 'ファイルを選択', class: %i(csv_input_btn), type: 'button', onclick: "$('#file_input').click();" %>
-      <%= text_field_tag 'filname' "", id: "filename", disabled: true %>
+      <%= text_field_tag 'filname', "", id: "filename", disabled: true %>
       <%= file_field_tag :file, id: "file_input", style: "display: none;", onchange: "file_selected($(this));" %>
     </div>
   <div>
@@ -33,7 +33,9 @@
               </h4>
               </div>
                 <div id="collapse<%=user.id %>" class="panel-collapse collapse">
-                  <!--<div class="panel-bpdy">%= render 'user', { user: user } %></div>-->
+                  <ul class="list-group">
+                    <%= render 'user' %>
+                  </ul>
                 </div>
               </div>
               </div>
