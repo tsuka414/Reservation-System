@@ -1,29 +1,33 @@
 <% provide(:title, 'All Users') %>
-  <h1>全てのユーザ一</h1>
+  <h1>ユーザ一一覧</h1>
 
+<% if flash[:notice] %>
+  <div class="alert alert-info" role="alert"><%= flash[:notice] %></div>
+<% end %>
+  
 <div class="csv_holder">
+  <!--%= form_tag import_users_path, method: :post, multipart:  true do |f| %>-->
+    <div class="search_item">
+      <%= submit_tag 'ファイルを選択', class: %i(csv_input_btn), type: 'button', onclick: "$('#file_input').click();" %>
+      <%= text_field_tag 'filname' "", id: "filename", disabled: true %>
+      <%= file_field_tag :file, id: "file_input", style: "display: none;", onchange: "file_selected($(this));" %>
+    </div>
   <div>
-    <%= link_to "CSV出力", users_path(format: :csv), class: "btn btn-primary" %>
+    <%= link_to "CSVをインポート", users_path(format: :csv), class: "btn btn-primary" %>
   </div>
+  <!--% end %>-->
 </div>
 
-
     <% @users.each do |user| %>
-      <tr>
-        <td>
-          <% if current_user.admin?  %>
-            <div class="col-md-10 col-md-offset-1"></div>
-            <%= user.name %><br>
-          <% end %>
-        </td>
-        
+      <div>
+        <p>
+          <div class="col-md-11 col-md-offset-1">
           <% if current_user.admin? && !current_user?(user) %>
-           
+            <%= user.name %><br> | 
             <%= link_to "削除", user, method: :delete,data: { confirm: "削除してよろしいですか？" }, class: "btn btn-primary" %><br>
               <div class="panel-group">
               <div class="panel panel-default">
               <div class="panel-heading">
-                
               <h4 class="panel-title">
                 <a data-toggle="collapse" href="#collapse<%= user.id %>"><button type="submit" class="btn btn-primary">編集</button></a>
               </h4>
@@ -34,10 +38,7 @@
               </div>
               </div>
           <% end %>
-        </td>
-      </tr>
+          </div>
+        </p>  
+      </div>
     <% end %>
-  </table>
-  <%= will_paginate %>
-</div>
-
