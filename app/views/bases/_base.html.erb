@@ -1,0 +1,13 @@
+<%= form_with(model: @base, url: bases_url,  local: true) do |f| %>
+
+  <%= f.label :拠点番号, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :base_number, class: "form-control" %>
+  
+  <%= f.label :拠点名, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :base_name, class: "form-control" %>
+  
+  <%= f.label :拠点種類, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :base_format, class: "form-control" %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary btn-block btn-#{yield(:class_text)}" %>
+<% end %>

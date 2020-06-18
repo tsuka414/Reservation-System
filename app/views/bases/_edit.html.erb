@@ -1,0 +1,37 @@
+<% provide(:class_text, 'base') %>
+<% provide(:button_text, '更新') %>
+
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title">拠点情報編集</h1>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <%= form_with(model: @base, url: basis_path(@base), local: true, method: :patch) do |f| %>
+
+            <%= f.label :base_number, class: "label-#{yield(:class_text)}" %>
+            <%= f.number_field :base_number, class: "form-control" %>
+
+            <%= f.label :base_name, class: "label-#{yield(:class_text)}" %>
+            <%= f.text_field :base_name, class: "form-control" %>
+
+            <%= f.label :base_format, class: "label-#{yield(:class_text)}" %>
+            <%= f.text_field :base_format, class: "form-control" %>
+
+            <div class="center">
+              <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>
+              <button type="button" class="btn btn-default btn-<%= yield(:class_text) %>" data-dismiss="modal">
+                キャンセル
+              </button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

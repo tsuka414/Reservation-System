@@ -25,6 +25,14 @@
     </tr>
   </table>
 </div>
+  <P class="danger-color">
+        【所属長承認申請のお知らせ】<span class="visible-inline danger-color box-danger"><a class="btn-notice danger-color" data-remote="true" href="/users/2/applies/edit_month.%23%3CApply::ActiveRecord_Relation:0x00007f5274244e60%3E">1件の申請があります</a></span>
+      </P>
+      <p>【勤怠変更申請のお知らせ】</p>
+    
+      <p class="danger-color">
+        【残業申請のお知らせ】<span class="visible-inline danger-color box-danger"><a class="btn-notice danger-color" data-remote="true" href="/users/2/attendances/edit_judgment_overtime?view_date=2020-06-01">1件の申請があります</a></span>
+      </p>
 
 <div>
   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
@@ -124,7 +132,10 @@
         <td rowspan=2></td>
         <td rowspan=2></td>
         <td rowspan=2></td>
-        <td rowspan=2></td>
+        <td rowspan=2>
+          所属長承認　未<br>
+          <%= link_to "申請する", user_attendance_path(@user), method: :patch, class: "btn btn-primary btn-attendance" %>
+        </td>
       </tr>
       <tr>
         <td colspan="2"><%= @attendances.count %></td>

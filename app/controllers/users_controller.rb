@@ -7,7 +7,17 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(page: params[:page])
-    
+  end
+  
+  def import
+    if params[:file].blank?
+      flash[:warning] = "CSVファイルが選択されていません。"
+      redirect_to users_url
+    else
+      User.import(params[:file])
+      flash[:success] = "ユーザー情報をインポートしました。"
+      redirect_to users_url
+    end
   end
 
   def show
@@ -62,7 +72,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :department )
     end
 
     def basic_info_params

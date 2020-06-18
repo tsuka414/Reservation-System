@@ -29,3 +29,20 @@ User.create!(name: "General2",
              password: "password",
              password_confirmation: "password",
              admin: false)
+             
+Base.create!(base_number: "1",
+             base_name: "東京",
+             base_format: "出勤"
+             )
+             
+Base.create!(base_number: "2",
+             base_name: "京都",
+             base_format: "出勤"
+             )
+             
+Base.create!(base_number: "3",
+             base_name: "三重",
+             base_format: "退勤"
+             )
+             
+             
