@@ -9,6 +9,10 @@ class UsersController < ApplicationController
     @users = User.paginate(page: params[:page])
   end
   
+  def working_employees
+    @users = User.includes(:attendances).references(:attendances).where('attendances.started_at IS NOT NULL').where('attendances.finished_at IS NULL')
+  end
+  
   def import
     if params[:file].blank?
       flash[:warning] = "CSVファイルが選択されていません。"
@@ -43,9 +47,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(update_user_params)
       flash[:success] = "ユーザー情報を更新しました。"
-      redirect_to @user
+      redirect_to users_url
     else
       render :edit      
     end
@@ -74,7 +78,11 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :department )
     end
-
+    
+    def update_user_params
+      params.require(:user).permit(:name, :email, :department, :employee_number, :uid, :password, :basic_work_time, :designated_work_start_time, :designated_work_end_time)
+    end
+    
     def basic_info_params
       params.require(:user).permit(:department, :basic_time, :work_time)
     end

@@ -9,8 +9,7 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true    
   validates :department, length: { in: 2..30 }, allow_blank: true
-  validates :basic_time, presence: true
-  validates :work_time, presence: true
+  validates :basic_work_time, presence: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
@@ -49,4 +48,18 @@ class User < ApplicationRecord
       all #全て表示。Micropost.は省略。
     end
   end
+  
+   def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      user = new
+      user.attributes = row.to_hash.slice(*updae_attributes)
+      user.save!
+    end
+   end 
+   
+   def self.updatable_attributes
+    ["name", "email", "affiliation", "employee_number", "password"]
+   end 
+
+
 end

@@ -1,0 +1,25 @@
+<h1>出勤社員一覧</h1>
+<div class="col-md-10 col-md-offset-1">
+  <table class="table table-condensed table-hover" id="table-users">
+    <thead>
+      <tr>
+        <th>社員番号</th>
+        <th>氏名</th>
+      </tr>
+    </thead>
+    
+    
+    
+    <% @users.each do |user| %>
+    
+      <tr>
+         
+        <td><%= user.employee_number.present? ? user.employee_number : "未設定" %></td>
+        <td><%= user.name %></td>
+    
+      </tr>
+    <% end %>
+    
+  </table>
+</div>
+

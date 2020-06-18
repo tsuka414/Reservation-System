@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   
   # ユーザー
   resources :users do
+    collection { post :import }
     member do
       get 'working_employees'
       get 'edit_basic_info'
