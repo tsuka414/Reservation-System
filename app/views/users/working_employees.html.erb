@@ -8,18 +8,12 @@
       </tr>
     </thead>
     
-    
-    
     <% @users.each do |user| %>
-    
       <tr>
-         
         <td><%= user.employee_number.present? ? user.employee_number : "未設定" %></td>
         <td><%= user.name %></td>
-    
       </tr>
     <% end %>
-    
   </table>
 </div>
 

@@ -13,15 +13,18 @@ class UsersController < ApplicationController
     @users = User.includes(:attendances).references(:attendances).where('attendances.started_at IS NOT NULL').where('attendances.finished_at IS NULL')
   end
   
+  
+  
   def import
-    if params[:file].blank?
+    if params[:file].blank? 
       flash[:warning] = "CSVファイルが選択されていません。"
-      redirect_to users_url
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:warning] = "CSVファイルを選択してください。"
     else
-      User.import(params[:file])
-      flash[:success] = "ユーザー情報をインポートしました。"
-      redirect_to users_url
+      num = User.import(params[:file])
+      flash[:success] = "ユーザー情報#{ num.to_s }件をインポートしました。"
     end
+    redirect_to users_url
   end
 
   def show

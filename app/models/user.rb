@@ -49,17 +49,41 @@ class User < ApplicationRecord
     end
   end
   
-   def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
-      user = new
-      user.attributes = row.to_hash.slice(*updae_attributes)
-      user.save!
+  def self.import(file)
+    imported_num = 0
+    open(file.path, 'r:cp932:utf-8', undef: :replace) do |f|
+      # csv = CSV.new(f, :headers => :first_row)
+      caches = User.all.index_by(&:id)
+      CSV.foreach(file.path, headers: true) do |row|
+        next if row.header_row?
+        #CSVの行情報をHASHに変換
+        table = Hash[[row.headers, row.fields].transpose]
+        #登録済みデータ情報
+        #登録されてなければ作成
+        user = caches[table['id']]
+        if user.nil?
+           user = new
+        end
+        #データ情報更新
+        user.attributes = row.to_hash.slice(*updatable_attributes)
+        #バリデーションokの場合は保存
+        if user.valid?
+          user.save!
+          imported_num += 1
+        end
+      end
     end
-   end 
-   
-   def self.updatable_attributes
-    ["name", "email", "affiliation", "employee_number", "password"]
-   end 
+    #更新件数を返す
+    imported_num
+  end
+  
+  # 更新を許可するカラムを定義
+  def self.updatable_attributes
+    ["name", "email", "department", "employee_number", "uid", "basic_work_time",
+     "designated_work_start_time", "designated_work_end_time", "superior", "admin",
+     "password"]
+  end
+
 
 
 end
