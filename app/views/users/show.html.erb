@@ -26,13 +26,11 @@
   </table>
 </div>
   <P class="danger-color">
-        【所属長承認申請のお知らせ】<span class="visible-inline danger-color box-danger"><a class="btn-notice danger-color" data-remote="true" href="/users/2/applies/edit_month.%23%3CApply::ActiveRecord_Relation:0x00007f5274244e60%3E">1件の申請があります</a></span>
-      </P>
+        【所属長承認申請のお知らせ】</P>
       <p>【勤怠変更申請のお知らせ】</p>
     
       <p class="danger-color">
-        【残業申請のお知らせ】<span class="visible-inline danger-color box-danger"><a class="btn-notice danger-color" data-remote="true" href="/users/2/attendances/edit_judgment_overtime?view_date=2020-06-01">1件の申請があります</a></span>
-      </p>
+        【残業申請のお知らせ】 </p>
 
 <div>
   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
@@ -76,10 +74,9 @@
 
     <tbody>
       <% @attendances.each do |day| %>
-        
         <tr>
           <td>
-            <%= link_to "残業申請", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
+            <%= link_to "残業申請", edit_overwork_request_user_attendance_path(@user, day), remote: true, class: "btn btn-primary btn-attendance" %>
           </td>
           <td><%= l(day.worked_on, format: :short) %></td>
           <td>
@@ -116,7 +113,11 @@
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
+          <td>
+            <% if day.confirmation.present? %>
+              <%= "#{day.confirmation}へ残業申請中" %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -134,6 +135,7 @@
         <td rowspan=2></td>
         <td rowspan=2>
           所属長承認　未<br>
+          <br>
           <%= link_to "申請する", user_attendance_path(@user), method: :patch, class: "btn btn-primary btn-attendance" %>
         </td>
       </tr>
@@ -145,3 +147,6 @@
     </tfoot>    
   </table>
 </div>
+
+<!--残業申請モーダルウインドウ表示-->
+<div id="edit-overwork-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

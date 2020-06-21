@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:show, :edit, :update]
   before_action :admin_user, only: [:index, :destroy, :edit_basic_info, :update_basic_info]
   before_action :set_one_month, only: :show
+  before_action :this_user, only: [:show, :edit]
 
   def index
     @users = User.paginate(page: params[:page])
@@ -12,8 +13,6 @@ class UsersController < ApplicationController
   def working_employees
     @users = User.includes(:attendances).references(:attendances).where('attendances.started_at IS NOT NULL').where('attendances.finished_at IS NULL')
   end
-  
-  
   
   def import
     if params[:file].blank? 
@@ -75,6 +74,7 @@ class UsersController < ApplicationController
     end
     redirect_to users_url
   end
+  
 
   private
 

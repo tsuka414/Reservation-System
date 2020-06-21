@@ -51,9 +51,30 @@ class AttendancesController < ApplicationController
    end
   end
   
+  def edit_overwork_request
+    @user = User.find(params[:user_id])
+    @attendance = @user.attendances.find(params[:id])
+  end
+  
+  def update_overwork_request
+    @user = User.find(params[:user_id])
+    @attendance = @user.attendances.find(params[:id])
+    if params[:attendance][:business_process].blank? || params[:attendance][:confirmation].blank?
+      flash[:danger] = "残業申請に失敗しました。"
+    else
+      @attendance.update_attributes(overwork_params)
+      flash[:success] = "残業を申請しました。"
+    end
+    redirect_to @user
+  end
+  
   private
     def attendances_params
       params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
+    end
+    
+    def overwork_params
+      params.require(:attendance).permit(:scheduled_end_time, :next_day, :business_process, :confirmation)
     end
     
     def admin_or_correct_user

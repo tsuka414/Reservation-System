@@ -29,6 +29,11 @@ class ApplicationController < ActionController::Base
   def admin_user
     redirect_to root_url unless current_user.admin?
   end
+  
+  # 現在ログインしているユーザーが管理者かどうか判断します。
+  def this_user
+    redirect_to root_url if current_user.admin?
+  end
 
   # ページ出力前に1ヶ月分のデータの存在を確認・セットします。
   def set_one_month 
