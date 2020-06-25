@@ -33,7 +33,7 @@
               <td><%= f.time_field :scheduled_end_time, class: "form-control" %></td>
               <td><%= f.check_box :next_day, id: "next_day" %></td>
               <td><%= f.text_field :business_process, class: "form-control" %></td>
-              <td><%= f.select :confirmation, [['上長A'],['上長B']], {}, { class: "form-control" } %></td>
+              <td><%= f.select :confirmation, options_from_collection_for_select(@superiors, :name, :name, 1), {include_blank: true}, { class: "form-control" } %></td>
             </tbody>
           </table>
           

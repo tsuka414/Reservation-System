@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 20200617065944) do
     t.datetime "finished_at"
     t.string "note"
     t.integer "user_id"
-    t.datetime "scheduled_end_time"
-    t.date "next_day"
+    t.time "scheduled_end_time"
+    t.boolean "next_day", default: false
     t.string "business_process"
     t.string "confirmation"
+    t.string "overwork_request_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_attendances_on_user_id"
@@ -48,9 +49,9 @@ ActiveRecord::Schema.define(version: 20200617065944) do
     t.string "department"
     t.integer "employee_number"
     t.string "uid"
-    t.datetime "basic_work_time", default: "2020-06-20 23:00:00"
-    t.datetime "designated_work_start_time", default: "2020-06-21 00:00:00"
-    t.datetime "designated_work_end_time", default: "2020-06-21 09:00:00"
+    t.time "basic_work_time", default: "2000-01-01 08:00:00"
+    t.time "designated_work_start_time", default: "2000-01-01 09:00:00"
+    t.time "designated_work_end_time", default: "2000-01-01 18:00:00"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

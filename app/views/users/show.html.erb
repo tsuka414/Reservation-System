@@ -24,14 +24,21 @@
       <td>締め：<%= l(@last_day, format: :short) %></td>
     </tr>
   </table>
+  
 </div>
-  <P class="danger-color">
-        【所属長承認申請のお知らせ】</P>
-      <p>【勤怠変更申請のお知らせ】</p>
-    
-      <p class="danger-color">
-        【残業申請のお知らせ】 </p>
-
+  <% if current_user.superior? %>
+    <p>【所属長承認申請のお知らせ】</p>
+    <p>【勤怠変更申請のお知らせ】</p>
+   
+    <% if @attendance_notice != 0 %>
+      <div style="color: #ff0000">
+         <%= link_to "【残業申請のお知らせ】", edit_notice_overwork_user_attendances_path(@user), remote: true, style: "color:#ff0000" %>
+         <b style="padding: 3px; margin-bottom: 1px; border: 3px solid #ff0000;"><%= @attendance_notice %>件の申請があります</b>
+      </div>
+    <% else %>
+      【残業申請のお知らせ】
+    <% end %>
+  <% end %>
 <div>
   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
   <%= link_to "CSV出力", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
@@ -111,7 +118,9 @@
           <td><%= day.note %></td>
           <td></td>
           <td></td>
-          <td></td>
+          <td>
+            
+          </td>
           <td></td>
           <td>
             <% if day.confirmation.present? %>
@@ -150,3 +159,6 @@
 
 <!--残業申請モーダルウインドウ表示-->
 <div id="edit-overwork-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<!--残業申請のお知らせモーダルウインドウ表示-->
+<div id="edit-notice-overwork" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

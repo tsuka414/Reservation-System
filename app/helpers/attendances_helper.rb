@@ -17,6 +17,15 @@ module AttendancesHelper
   end
   
   def format_min(time)
-    format("%.2d",(((time.min) / 15) * 15))
+    format("%.2d", (((time.min) / 15) * 15))
+  end
+  
+  # 時間外時間
+  def overwork_hour(designated_work_end_time, scheduled_end_time, next_day)
+    if next_day == true
+     format("%.2f", (((((scheduled_end_time.hour - designated_work_end_time.hour ) * 60) + (scheduled_end_time.min - designated_work_end_time.min)) / 60.0 + 24)))
+    else
+     format("%.2f", (((((scheduled_end_time.hour - designated_work_end_time.hour ) * 60) + (scheduled_end_time.min - designated_work_end_time.min)) / 60.0)))
+    end
   end
 end

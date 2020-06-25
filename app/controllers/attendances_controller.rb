@@ -54,18 +54,36 @@ class AttendancesController < ApplicationController
   def edit_overwork_request
     @user = User.find(params[:user_id])
     @attendance = @user.attendances.find(params[:id])
+    @superiors = User.where(superior: true).where.not(id: @user.id)
   end
   
   def update_overwork_request
     @user = User.find(params[:user_id])
     @attendance = @user.attendances.find(params[:id])
+    scheduled_end_time = @attendance.worked_on.to_s + " " + params[:attendance][:scheduled_end_time] + ":00"
+    scheduled_end_time = scheduled_end_time.to_datetime
     if params[:attendance][:business_process].blank? || params[:attendance][:confirmation].blank?
-      flash[:danger] = "残業申請に失敗しました。"
+      flash[:danger] = "未入力の項目があり、残業申請に失敗しました。"
+    elsif (params[:attendance][:next_day] == "0") && ((@user.designated_work_end_time.hour.to_i > scheduled_end_time.hour.to_i) || 
+      ((@user.designated_work_end_time.hour.to_i == scheduled_end_time.hour.to_i) && (@user.designated_work_end_time.min.to_i >= scheduled_end_time.min.to_i)))
+      flash[:danger] = "終了予定時間は指定勤務終了時間より未来の時刻を入力してください。"
     else
+      
+      @attendance.overwork_request_status = "申請中"
       @attendance.update_attributes(overwork_params)
       flash[:success] = "残業を申請しました。"
     end
     redirect_to @user
+  end
+  
+  # 残業のお知らせモーダル表示
+  def edit_notice_overwork
+    @user = User.find(params[:user_id])
+    @notice_users = Attendance.where(overwork_request_status: "申請中", confirmation: @user.name).order(user_id: "ASC", worked_on: "ASC").group_by(&:user_id)
+  end
+  
+  def update_notice_overwork
+    @user = User.find(params[:user_id])
   end
   
   private
@@ -75,6 +93,10 @@ class AttendancesController < ApplicationController
     
     def overwork_params
       params.require(:attendance).permit(:scheduled_end_time, :next_day, :business_process, :confirmation)
+    end
+    
+    # 残業申請のお知らせモーダル更新
+    def notice_overwork_params
     end
     
     def admin_or_correct_user

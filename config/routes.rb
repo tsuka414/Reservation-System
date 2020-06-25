@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       member do
         get 'edit_overwork_request'
         patch 'update_overwork_request'
+      end
+      collection do
         get 'edit_notice_overwork'
         patch 'update_notice_overwork'
       end
