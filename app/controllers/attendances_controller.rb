@@ -51,6 +51,16 @@ class AttendancesController < ApplicationController
    end
   end
   
+  # 勤怠確認ボタン
+  def confirm_one_month
+    @user = User.find(params[:id])
+    @first_day = params[:date].to_date.beginning_of_month
+    @last_day = @first_day.end_of_month
+    # ユーザーに紐付く一ヶ月分のレコードを検索し取得します。
+    @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
+    @worked_sum = @attendances.where.not(started_at: nil).count
+  end
+  
   def edit_overwork_request
     @user = User.find(params[:user_id])
     @attendance = @user.attendances.find(params[:id])
@@ -68,7 +78,6 @@ class AttendancesController < ApplicationController
       ((@user.designated_work_end_time.hour.to_i == scheduled_end_time.hour.to_i) && (@user.designated_work_end_time.min.to_i >= scheduled_end_time.min.to_i)))
       flash[:danger] = "終了予定時間は指定勤務終了時間より未来の時刻を入力してください。"
     else
-      
       @attendance.overwork_request_status = "申請中"
       @attendance.update_attributes(overwork_params)
       flash[:success] = "残業を申請しました。"
@@ -84,6 +93,18 @@ class AttendancesController < ApplicationController
   
   def update_notice_overwork
     @user = User.find(params[:user_id])
+    ActiveRecord::Base.transaction do
+      notice_overwork_params.each do |id, attendance|
+        if item[:change] == "1"
+          attendance = Attendance.find(id)
+          attendance.update_attributes!(item)
+        end
+      end
+      flash[:success] = "変更を送信しました。"
+      redirect_to @user
+    rescue ActiveRecord::RecordInvalid
+      flash[:danger] = "無効な入力があり変更を送信出来ませんでした。"
+    end
   end
   
   private
@@ -97,6 +118,7 @@ class AttendancesController < ApplicationController
     
     # 残業申請のお知らせモーダル更新
     def notice_overwork_params
+      params.require(:attendances).permit(attendances: [:overwork_request_status, :change])[:attendances]
     end
     
     def admin_or_correct_user

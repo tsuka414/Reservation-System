@@ -8,6 +8,7 @@ class CreateAttendances < ActiveRecord::Migration[5.1]
       t.references :user, foreign_key: true
       t.time :scheduled_end_time
       t.boolean :next_day, default: false
+      t.boolean :change, default: false
       t.string :business_process
       t.string :confirmation
       t.string :overwork_request_status

@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20200617065944) do
     t.integer "user_id"
     t.time "scheduled_end_time"
     t.boolean "next_day", default: false
+    t.boolean "change", default: false
     t.string "business_process"
     t.string "confirmation"
     t.string "overwork_request_status"
