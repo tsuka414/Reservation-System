@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get 'attendances/edit_one_month'
       patch 'attendances/update_one_month'
       get 'attendances/confirm_one_month'
+      get 'attendances/log_index'
     end
     resources :attendances, only: :update do
       member do
@@ -30,6 +31,8 @@ Rails.application.routes.draw do
       collection do
         get 'edit_notice_overwork'
         patch 'update_notice_overwork'
+        get 'edit_notice_attendance'
+        patch 'update_notice_attendance'
       end
     end
   end

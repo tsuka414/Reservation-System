@@ -28,7 +28,15 @@
 </div>
   <% if current_user.superior? %>
     <p>【所属長承認申請のお知らせ】</p>
-    <p>【勤怠変更申請のお知らせ】</p>
+    
+    <% if @attendance_notice != 0 %>
+      <div style="color: #ff0000">
+         <%= link_to "【勤怠変更申請のお知らせ】", edit_notice_attendance_user_attendances_path(@user), remote: true, style: "color:#ff0000" %>
+         <b style="padding: 3px; margin-bottom: 1px; border: 3px solid #ff0000;"><%= @attendance_notice %>件の申請があります</b>
+      </div>
+    <% else %>
+      【勤怠変更申請のお知らせ】
+    <% end %><br>
    
     <% if @attendance_notice != 0 %>
       <div style="color: #ff0000">
@@ -44,7 +52,7 @@
   <%= link_to "CSV出力", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
 </div>
 <div>
-  <%= link_to "勤怠修正ログ（承認済み）", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
+  <%= link_to "勤怠修正ログ（承認済み）", attendances_log_index_user_path(@user), class: "btn btn-sm btn-primary" %>
 </div>
 
 <div>
@@ -80,6 +88,7 @@
     </thead>
 
     <tbody>
+      
       <% @attendances.each do |day| %>
         <tr>
           <td>
@@ -116,19 +125,38 @@
             <% end %>
           </td>
           <td><%= day.note %></td>
-          <td></td>
-          <td></td>
           <td>
-            
+            <% if day.overwork_request_status == "承認" || day.overwork_request_status == "否認" %>
+              <%= day.scheduled_end_time.hour %>
+            <% end %>
           </td>
-          <td></td>
           <td>
-            <% if day.confirmation.present? %>
-              <%= "#{day.confirmation}へ残業申請中" %>
+            <% if day.overwork_request_status == "承認" || day.overwork_request_status == "否認" %>
+              <%= day.scheduled_end_time.min %>
+            <% end %>
+          </td>
+          <td>
+            <% if day.overwork_request_status == "承認" || day.overwork_request_status == "否認" %>
+              <%= overwork_hour(@user.designated_work_end_time, day.scheduled_end_time, day.next_day) %>
+            <% end %>
+          </td>
+          <td>
+            <% if day.overwork_request_status == "承認" || day.overwork_request_status == "否認" %>
+              <%= day.business_process %>
+            <% end %>
+          </td>
+          <td>
+            <% if day.overwork_request_status == "申請中" %>
+              <%= "#{day.confirmation} へ残業申請中" %>
+            <% elsif day.overwork_request_status == "承認" %>
+              <%= "残業申請承認済" %>
+            <% elsif day.overwork_request_status == "否認" %>
+              <%= "残業申請否認" %>
             <% end %>
           </td>
         </tr>
       <% end %>
+      
     </tbody>
 
     <tfoot>
@@ -144,6 +172,7 @@
         <td rowspan=2></td>
         <td rowspan=2>
           所属長承認　未<br>
+          
           <br>
           <%= link_to "申請する", user_attendance_path(@user), method: :patch, class: "btn btn-primary btn-attendance" %>
         </td>
@@ -162,3 +191,6 @@
 
 <!--残業申請のお知らせモーダルウインドウ表示-->
 <div id="edit-notice-overwork" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<!--勤怠変更申請のお知らせモーダルウィンドウ表示-->
+<div id="edit-notice-attendance" class="modal fade" tabinex="-1" role="dialog" aria-hidden="true"></div>

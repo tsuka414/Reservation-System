@@ -26,6 +26,7 @@ class AttendancesController < ApplicationController
   end
   
   def edit_one_month
+    @superiors = User.where(superior: true).where.not(id: @user.id)
   end
   
   def update_one_month
@@ -43,7 +44,7 @@ class AttendancesController < ApplicationController
         attendance = Attendance.find(id)
         attendance.update_attributes!(item)
       end
-    flash[:success] = "1ヶ月分の勤怠情報を更新しました。"
+    flash[:success] = "勤怠変更申請を更新しました。"
     redirect_to user_url(date: params[:date])
    rescue 
     flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
@@ -61,6 +62,13 @@ class AttendancesController < ApplicationController
     @worked_sum = @attendances.where.not(started_at: nil).count
   end
   
+  def log_index
+    # @logs =
+    # if params[:search].blank?
+    #   Attendance.where(user_id, attendance_status)
+  end
+  
+  # 残業申請
   def edit_overwork_request
     @user = User.find(params[:user_id])
     @attendance = @user.attendances.find(params[:id])
@@ -94,31 +102,45 @@ class AttendancesController < ApplicationController
   def update_notice_overwork
     @user = User.find(params[:user_id])
     ActiveRecord::Base.transaction do
-      notice_overwork_params.each do |id, attendance|
-        if item[:change] == "1"
+      notice_overwork_params.each do |id, item|
+        if item[:change] == "1" 
           attendance = Attendance.find(id)
           attendance.update_attributes!(item)
+          flash[:success] = "変更を送信しました。"
+        else
+          flash[:danger] = "無効な入力があり変更を送信出来ないものがありました。"
         end
       end
-      flash[:success] = "変更を送信しました。"
       redirect_to @user
     rescue ActiveRecord::RecordInvalid
       flash[:danger] = "無効な入力があり変更を送信出来ませんでした。"
     end
   end
   
+  # 勤怠変更申請
+  def edit_notice_attendance
+    @user = User.find(params[:user_id])
+    @notice_users = Attendance.where(overwork_request_status: "申請中", confirmation: @user.name).order(user_id: "ASC", worked_on: "ASC").group_by(&:user_id)
+  end
+  
+  def update_notice_attendance
+  end
+  
   private
+  
+    # 勤怠変更申請
     def attendances_params
-      params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
+      params.require(:user).permit(attendances: [:started_at, :finished_at, :note, :scheduled_end_time, :business_process, :confirmation])[:attendances]
     end
     
+    # 残業申請
     def overwork_params
       params.require(:attendance).permit(:scheduled_end_time, :next_day, :business_process, :confirmation)
     end
     
-    # 残業申請のお知らせモーダル更新
+    # 残業申請承認
     def notice_overwork_params
-      params.require(:attendances).permit(attendances: [:overwork_request_status, :change])[:attendances]
+      params.require(:user).permit(attendances: [:overwork_request_status, :change])[:attendances]
     end
     
     def admin_or_correct_user
