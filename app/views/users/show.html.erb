@@ -27,9 +27,15 @@
   
 </div>
   <% if current_user.superior? %>
-    <p>【所属長承認申請のお知らせ】</p>
+    <div style="color: #ff0000">
+         <%= link_to "【所属長承認申請のお知らせ】", edit_monthly_user_attendances_path(@user), remote: true, style: "color:#ff0000" %>
+         <b style="padding: 3px; margin-bottom: 1px; border: 3px solid #ff0000;"><%= @overwork_notice %>件の申請があります</b>
+      </div>
+    <% else %>
+      【所属長承認申請のお知らせ】
+    <% end %><br>
     
-    <% if @attendance_notice != 0 %>
+    <% if @attendance_notice!= 0 %>
       <div style="color: #ff0000">
          <%= link_to "【勤怠変更申請のお知らせ】", edit_notice_attendance_user_attendances_path(@user), remote: true, style: "color:#ff0000" %>
          <b style="padding: 3px; margin-bottom: 1px; border: 3px solid #ff0000;"><%= @attendance_notice %>件の申請があります</b>
@@ -38,15 +44,15 @@
       【勤怠変更申請のお知らせ】
     <% end %><br>
    
-    <% if @attendance_notice != 0 %>
+    <% if @overwork_notice != 0 %>
       <div style="color: #ff0000">
          <%= link_to "【残業申請のお知らせ】", edit_notice_overwork_user_attendances_path(@user), remote: true, style: "color:#ff0000" %>
-         <b style="padding: 3px; margin-bottom: 1px; border: 3px solid #ff0000;"><%= @attendance_notice %>件の申請があります</b>
+         <b style="padding: 3px; margin-bottom: 1px; border: 3px solid #ff0000;"><%= @overwork_notice %>件の申請があります</b>
       </div>
     <% else %>
       【残業申請のお知らせ】
     <% end %>
-  <% end %>
+  
 <div>
   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
   <%= link_to "CSV出力", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
@@ -153,6 +159,7 @@
             <% elsif day.overwork_request_status == "否認" %>
               <%= "残業申請否認" %>
             <% end %>
+            <%= day.edit_confirmation %>
           </td>
         </tr>
       <% end %>
@@ -172,7 +179,7 @@
         <td rowspan=2></td>
         <td rowspan=2>
           所属長承認　未<br>
-          
+          <!--%= @attendances.select :confirmation, options_from_collection_for_select(@superiors, :name, :name, 1), {include_blank: true}, { class: "form-control" } %>-->
           <br>
           <%= link_to "申請する", user_attendance_path(@user), method: :patch, class: "btn btn-primary btn-attendance" %>
         </td>
@@ -194,3 +201,6 @@
 
 <!--勤怠変更申請のお知らせモーダルウィンドウ表示-->
 <div id="edit-notice-attendance" class="modal fade" tabinex="-1" role="dialog" aria-hidden="true"></div>
+
+<!--所属長承認申請のお知らせモーダルウィンドウ表示-->
+<div id="edit-monthly" class="modal fade" tabinex="-1" role="dialog" aria-hidden="true"></div>

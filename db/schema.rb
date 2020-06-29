@@ -16,14 +16,21 @@ ActiveRecord::Schema.define(version: 20200617065944) do
     t.date "worked_on"
     t.datetime "started_at"
     t.datetime "finished_at"
+    t.datetime "before_started_at"
+    t.datetime "before_finished_at"
+    t.datetime "edit_started_at"
+    t.datetime "edit_finished_at"
     t.string "note"
-    t.integer "user_id"
     t.time "scheduled_end_time"
     t.boolean "next_day", default: false
     t.boolean "change", default: false
     t.string "business_process"
-    t.string "confirmation"
     t.string "overwork_request_status"
+    t.string "edit_request_status"
+    t.string "confirmation"
+    t.string "edit_confirmation"
+    t.date "approval_date"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_attendances_on_user_id"

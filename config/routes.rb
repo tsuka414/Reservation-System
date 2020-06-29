@@ -33,6 +33,8 @@ Rails.application.routes.draw do
         patch 'update_notice_overwork'
         get 'edit_notice_attendance'
         patch 'update_notice_attendance'
+        get 'edit_monthly'
+        patch 'update_monthly'
       end
     end
   end

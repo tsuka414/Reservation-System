@@ -29,21 +29,22 @@
                   <%= $days_of_the_week[day.worked_on.wday] %>
                 <% end %>
               </td>
+               
               <% if Date.current < day.worked_on %>
-                <td><%= attendance.time_field :started_at, readonly: true, class: "form-control" %></td>
-                <td><%= attendance.time_field :finished_at, readonly: true, class: "form-control" %></td>
+                <td><%= attendance.time_field :edit_started_at, readonly: true, class: "form-control" %></td>
+                <td><%= attendance.time_field :edit_finished_at, readonly: true, class: "form-control" %></td>
               <% else %>
-                <td><%= attendance.time_field :started_at, class: "form-control" %></td>
-                <td><%= attendance.time_field :finished_at, class: "form-control" %></td>
+                <td><%= attendance.time_field :edit_started_at, class: "form-control" %></td>
+                <td><%= attendance.time_field :edit_finished_at, class: "form-control" %></td>
               <% end %>
-              <td><%= f.check_box :change, class:"change" %></td>
+              <td><%= attendance.check_box :next_day, id: "next_day" %></td>
               <td>
                 <% if day.started_at.present? && day.finished_at.present? %>
                   <%= working_times(day.started_at, day.finished_at) %>
                 <% end %>
               </td>
               <td><%= attendance.text_field :note, class: "form-control" %></td>
-              <td><%= f.select :confirmation, options_from_collection_for_select(@superiors, :name, :name, 1), {include_blank: true}, { class: "form-control" } %></td>
+              <td><%= attendance.select :edit_confirmation, options_from_collection_for_select(@superiors, :name, :name, 1), {include_blank: true}, { class: "form-control" } %></td>
             </tr>
           <% end %>
         <% end %>
