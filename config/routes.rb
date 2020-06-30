@@ -18,10 +18,13 @@ Rails.application.routes.draw do
       get 'working_employees'
       get 'edit_basic_info'
       patch 'update_basic_info'
+      post 'request_monthly'
+      patch 'request_monthly'
       get 'attendances/edit_one_month'
       patch 'attendances/update_one_month'
       get 'attendances/confirm_one_month'
       get 'attendances/log_index'
+      
     end
     resources :attendances, only: :update do
       member do
@@ -35,6 +38,7 @@ Rails.application.routes.draw do
         patch 'update_notice_attendance'
         get 'edit_monthly'
         patch 'update_monthly'
+       
       end
     end
   end

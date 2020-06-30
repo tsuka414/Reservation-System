@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 20200617065944) do
     t.string "business_process"
     t.string "overwork_request_status"
     t.string "edit_request_status"
+    t.string "monthly_request_status"
     t.string "confirmation"
     t.string "edit_confirmation"
+    t.string "monthly_confirmation"
     t.date "approval_date"
     t.integer "user_id"
     t.datetime "created_at", null: false

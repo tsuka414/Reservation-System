@@ -15,11 +15,12 @@ class CreateAttendances < ActiveRecord::Migration[5.1]
       t.string :business_process # 業務処理内容
       t.string :overwork_request_status # 残業申請の状態
       t.string :edit_request_status # 編集申請の状態
+      t.string :monthly_request_status # 1ヶ月勤怠申請の状態
       t.string :confirmation # 残業申請の承認者
       t.string :edit_confirmation # 編集申請の承認者
+      t.string :monthly_confirmation # 1ヶ月勤怠申請承認者
       t.date :approval_date # 編集申請承認日
-      
-      
+     
       t.references :user, foreign_key: true
       t.timestamps
     end

@@ -9,8 +9,8 @@
     <%= form_with(model: @user, url: update_notice_attendance_user_attendances_path(@user), local: true, method: :patch) do |f| %>
       <% @attendancece_users.each do |id, attendances| %>
       <% user = User.find(id) %>
-      <h1 class="modal-title"><%= user.name %>からの残業申請</h1>
       <table class="table table-bordered table-striped table-hover" id = "table-attendances">
+        <h2 class="modal-title">【<%= user.name %>からの勤怠変更申請】</h2>
         <thead>
           <tr>
             <th rowspan="3">日付</th>
@@ -56,13 +56,19 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
             <td>
-              
+              <%= attendance.edit_started_at.hour if attendance.edit_started_at.present? %>
             </td>
-            <td></td>
-            <td></td>
-            <td><%= attendance.business_process %></td>
+            <td>
+              <%= attendance.edit_started_at.min if attendance.edit_started_at.present? %>
+            </td>
+            <td>
+              <%= attendance.edit_finished_at.hour if attendance.edit_finished_at.present? %>
+            </td>
+            <td>
+              <%= attendance.edit_finished_at.min if attendance.edit_finished_at.present? %>
+            </td>
+            <td><%= attendance.note %></td>
             <td><%= att.select :edit_request_status, [['なし'],['申請中'],['承認'],['否認']], {include_blank: true}, { class: "form-control" } %></td>
             <td><%= att.check_box :change, class:"change" %></td>
             <td><%= link_to "確認", attendances_confirm_one_month_user_path(User.find(id), date: attendance.worked_on), class: "btn btn-primary byn-md" %></td>

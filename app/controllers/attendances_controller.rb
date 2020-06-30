@@ -7,6 +7,7 @@ class AttendancesController < ApplicationController
   UPDATE_ERROR_MSG = "勤怠登録に失敗しました。やり直してください。"
   
   def update
+    
     @user = User.find(params[:user_id])
     @attendance = Attendance.find(params[:id])
     if @attendance.started_at.nil?
@@ -83,7 +84,7 @@ class AttendancesController < ApplicationController
           attendance.update_attributes!(item)
           flash[:success] = "変更を送信しました。"
         else
-          flash[:danger] = "無効な入力があり変更を送信出来ないものがありました。"
+          flash[:notice] = "変更にチェックがないものは更新しませんでした。"
         end
       end
       redirect_to @user
@@ -99,6 +100,21 @@ class AttendancesController < ApplicationController
   end
   
   def update_notice_attendance
+    @user = User.find(params[:user_id])
+    ActiveRecord::Base.transaction do
+      notice_attendance_params.each do |id, item|
+        if item[:change] == "1" 
+          attendance = Attendance.find(id)
+          attendance.update_attributes!(item)
+          flash[:success] = "変更を送信しました。"
+        else
+          flash[:notice] = "変更にチェックがないものは更新しませんでした。"
+        end
+      end
+      redirect_to @user
+    rescue ActiveRecord::RecordInvalid
+      flash[:danger] = "無効な入力があり変更を送信出来ないものがありました。"
+    end
   end
   
   def edit_one_month
@@ -127,6 +143,16 @@ class AttendancesController < ApplicationController
    end
   end
   
+  # 所属長承認
+  def edit_monthly
+    @user = User.find(params[:user_id])
+    @attendance = @user.attendances.find(params[:id])
+    @superiors = User.where(superior: true).where.not(id: @user.id)
+  end
+  
+  def update_monthly
+  end
+  
   private
   
     # 勤怠変更申請
@@ -142,6 +168,11 @@ class AttendancesController < ApplicationController
     # 残業申請承認
     def notice_overwork_params
       params.require(:user).permit(attendances: [:overwork_request_status, :change])[:attendances]
+    end
+    
+    # 勤怠変更承認
+    def notice_attendance_params
+      params.require(:user).permit(attendances: [:edit_request_status, :change])[:attendances]
     end
     
     def admin_or_correct_user

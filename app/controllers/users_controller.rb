@@ -25,11 +25,27 @@ class UsersController < ApplicationController
     end
     redirect_to users_url
   end
+  
+  def request_monthly
+    @user = User.find(params[:id])
+    @attendance = @user.attendances.find_by(worked_on: params[:user][:first_day])
+    if params[:user][:monthly_confirmation].blank?
+      flash[:danger] = "所属長を選択してください。"
+      redirect_to @user
+    else
+      @attendance.monthly_request_status = "申請中"
+      @attendance.update_attributes(monthly_params)
+      flash[:success] = "1ヶ月分の勤怠承認を申請しました。"
+      redirect_to @user
+    end
+  end
 
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
     @overwork_notice = Attendance.where(overwork_request_status: "申請中", confirmation: @user.name).count
     @attendance_notice = Attendance.where(edit_request_status: "申請中", edit_confirmation: @user.name).count
+    @attendance = @user.attendances.find(params[:id])
+    @superiors = User.where(superior: true).where.not(id: @user.id)
   end
 
   def new
@@ -79,6 +95,10 @@ class UsersController < ApplicationController
   
 
   private
+  
+    def monthly_params
+      params.require(:user).permit(:monthly_confirmation)
+    end
 
     def user_params
       params.require(:user).permit(:name, :email, :department )
