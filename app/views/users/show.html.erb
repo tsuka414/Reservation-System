@@ -27,10 +27,10 @@
   
 </div>
   <% if current_user.superior? %>
-    <% if @overwork_notice != 0 %>
+    <% if @monthly_notice != 0 %>
     <div style="color: #ff0000">
          <%= link_to "【所属長承認申請のお知らせ】", edit_monthly_user_attendances_path(@user), remote: true, style: "color:#ff0000" %>
-         <b style="padding: 3px; margin-bottom: 1px; border: 3px solid #ff0000;"><%= @overwork_notice %>件の申請があります</b>
+         <b style="padding: 3px; margin-bottom: 1px; border: 3px solid #ff0000;"><%= @monthly_notice %>件の申請があります</b>
       </div>
     <% else %>
       【所属長承認申請のお知らせ】
@@ -56,7 +56,7 @@
   <% end %>
 <div>
   <%= link_to "勤怠の編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-sm btn-primary" %>
-  <%= link_to "CSV出力", users_path(format: :csv), class: "btn btn-sm btn-primary" %>
+  <%= link_to "CSV出力", user_path(@user, format: :csv), class: "btn btn-sm btn-primary" %>
 </div>
 <div>
   <%= link_to "勤怠修正ログ（承認済）", attendances_log_index_user_path(@user), class: "btn btn-sm btn-primary" %>
@@ -115,11 +115,15 @@
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
               <%= day.edit_started_at.hour %>
+            <% elsif day.started_at.present? %>
+              <%= day.started_at.hour %>
             <% end %>
           </td>
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
               <%= day.edit_started_at.min %>
+            <% elsif day.started_at.present? %>
+              <%= day.started_at.min %>
             <% end %>
           </td>
           <td>
@@ -130,11 +134,15 @@
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
               <%= day.edit_finished_at.hour %>
+            <% elsif day.finished_at.present? %>
+              <%= day.finished_at.hour %>
             <% end %>
           </td>
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
               <%= day.edit_finished_at.min %>
+            <% elsif day.finished_at.present? %>
+              <%= day.finished_at.min %>
             <% end %>
           </td>
           <td>
@@ -206,8 +214,15 @@
         <td rowspan=2></td>
         <td rowspan=2></td>
         <td rowspan=2>
-          
-            <%= "所属長承認 未" %>
+          <% @attendances.each do |day| %>
+            <% if day.monthly_request_status == "申請中" %>
+              <%= "#{day.monthly_confirmation}へ申請中" %>
+            <% elsif day.monthly_request_status == "承認" %>
+              <%= "勤怠変更承認済" %>
+            <% elsif day.monthly_request_status == "否認" %>
+              <%= "勤怠変更否認" %>
+            <% end %>
+          <% end %>
           <br>
           <%= form_with(model: @user, url: request_monthly_user_path(@user), local: true, method: :patch) do |f| %>
             <%= f.hidden_field :first_day, :value => @first_day %>

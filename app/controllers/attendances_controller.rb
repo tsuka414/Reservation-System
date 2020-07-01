@@ -1,5 +1,5 @@
 class AttendancesController < ApplicationController
-  before_action :set_user, only: [:edit_one_month, :update_one_month]
+  before_action :set_user, only: [:edit_one_month, :update_one_month, :log_index]
   before_action :logged_in_user, only: [:update, :edit_one_month]
   before_action :admin_or_correct_user, only: [:update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
@@ -26,8 +26,6 @@ class AttendancesController < ApplicationController
     redirect_to @user
   end
   
-  
-  
   # 勤怠確認ボタン
   def confirm_one_month
     @user = User.find(params[:id])
@@ -39,9 +37,7 @@ class AttendancesController < ApplicationController
   end
   
   def log_index
-    # @logs =
-    # if params[:search].blank?
-    #   Attendance.where(user_id, attendance_status)
+    @logs = Attendance.where(edit_request_status: "承認", user_id: @user.id)
   end
   
   # 残業申請
@@ -130,6 +126,7 @@ class AttendancesController < ApplicationController
             redirect_to attendances_edit_one_month_user_url(date: params[:date]) and return
           else
             attendance = @user.attendances.find(id)
+            attendance.approval_date = Date.current
             attendance.edit_request_status = "申請中"
             attendance.update_attributes!(item)
           end
@@ -146,11 +143,26 @@ class AttendancesController < ApplicationController
   # 所属長承認
   def edit_monthly
     @user = User.find(params[:user_id])
-    @attendance = @user.attendances.find(params[:id])
+    @monthly_users = Attendance.where(monthly_request_status: "申請中", monthly_confirmation: @user.name).order(user_id: "ASC", worked_on: "ASC").group_by(&:user_id)
     @superiors = User.where(superior: true).where.not(id: @user.id)
   end
   
   def update_monthly
+     @user = User.find(params[:user_id])
+    ActiveRecord::Base.transaction do
+      notice_monthly_params.each do |id, item|
+        if item[:change] == "1" 
+          attendance = Attendance.find(id)
+          attendance.update_attributes!(item)
+          flash[:success] = "変更を送信しました。"
+        else
+          flash[:notice] = "変更にチェックがないものは更新しませんでした。"
+        end
+      end
+      redirect_to @user
+    rescue ActiveRecord::RecordInvalid
+      flash[:danger] = "無効な入力があり変更を送信出来ないものがありました。"
+    end
   end
   
   private
@@ -172,7 +184,12 @@ class AttendancesController < ApplicationController
     
     # 勤怠変更承認
     def notice_attendance_params
-      params.require(:user).permit(attendances: [:edit_request_status, :change])[:attendances]
+      params.require(:user).permit(attendances: [:edit_request_status, :change, :approval_date])[:attendances]
+    end
+    
+    # 1ヶ月変更承認
+    def notice_monthly_params
+      params.require(:user).permit(attendances: [:monthly_request_status, :change])[:attendances]
     end
     
     def admin_or_correct_user

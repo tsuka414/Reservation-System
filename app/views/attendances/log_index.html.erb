@@ -2,6 +2,8 @@
 
 <h1>勤怠ログ</h1>
 
+
+
 <div>
   <table class="table table-bordered table-condenced table-hover" id="table-attendances">
     <thead>
@@ -11,21 +13,23 @@
         <th>変更前退社時間</th>
         <th>変更後出社時間</th>
         <th>変更後退社時間</th>
-        <th>指示者</th>
+        <th>承認者</th>
+        <th>承認日</th>
       </tr>
     </thead>
     
     <tbody>
-      
+      <% @logs.each do |day| %>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><%= l(day.worked_on, format: :log) %></td>
+          <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td>
+          <td><%= l(day.finished_at, format: :time) if day.finished_at.present? %></td>
+          <td><%= l(day.edit_started_at, format: :time) if day.edit_started_at.present? %></td>
+          <td><%= l(day.edit_finished_at, format: :time) if day.edit_finished_at.present? %></td>
+          <td><%= day.edit_confirmation %></td>
+          <td><%= l(day.approval_date, format: :log) %></td>
         </tr>
-      
+      <% end %>
     </tbody>
   </table>
 </div>

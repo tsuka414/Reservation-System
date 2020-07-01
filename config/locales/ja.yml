@@ -38,6 +38,7 @@ ja:
     - 金曜日
     - 土曜日
     formats:
+      log: "%Y-%m-%d"
       default: "%Y/%m/%d"
       long: "%Y年%m月%d日(%a)"
       middle: "%Y年%m月"

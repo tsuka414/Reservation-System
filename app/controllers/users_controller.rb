@@ -44,8 +44,17 @@ class UsersController < ApplicationController
     @worked_sum = @attendances.where.not(started_at: nil).count
     @overwork_notice = Attendance.where(overwork_request_status: "申請中", confirmation: @user.name).count
     @attendance_notice = Attendance.where(edit_request_status: "申請中", edit_confirmation: @user.name).count
-    @attendance = @user.attendances.find(params[:id])
+    @monthly_notice = Attendance.where(monthly_request_status: "申請中", monthly_confirmation: @user.name).count
     @superiors = User.where(superior: true).where.not(id: @user.id)
+    
+    respond_to do |format|
+      format.html do
+          #html用の処理を書く
+      end 
+      format.csv do
+          #csv用の処理を書く
+      end
+    end
   end
 
   def new

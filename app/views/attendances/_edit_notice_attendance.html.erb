@@ -52,10 +52,18 @@
                <%= $days_of_the_week[attendance.worked_on.wday] %>
             <% end %>
             </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>
+              <%= attendance.started_at.hour if attendance.started_at.present? %>
+            </td>
+            <td>
+              <%= attendance.started_at.min if attendance.started_at.present? %>
+            </td>
+            <td>
+              <%= attendance.finished_at.hour if attendance.finished_at.present? %>
+            </td>
+            <td>
+              <%= attendance.finished_at.min if attendance.finished_at.present? %>
+            </td>
             <td>
               <%= attendance.edit_started_at.hour if attendance.edit_started_at.present? %>
             </td>
