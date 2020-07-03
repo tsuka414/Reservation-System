@@ -114,14 +114,12 @@
           </td>
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-              <%= day.edit_started_at.hour %>
             <% elsif day.started_at.present? %>
               <%= day.started_at.hour %>
             <% end %>
           </td>
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-              <%= day.edit_started_at.min %>
             <% elsif day.started_at.present? %>
               <%= day.started_at.min %>
             <% end %>
@@ -133,14 +131,12 @@
           </td>
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-              <%= day.edit_finished_at.hour %>
             <% elsif day.finished_at.present? %>
               <%= day.finished_at.hour %>
             <% end %>
           </td>
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-              <%= day.edit_finished_at.min %>
             <% elsif day.finished_at.present? %>
               <%= day.finished_at.min %>
             <% end %>
@@ -151,8 +147,8 @@
             <% end %>
           </td>
           <td>
-            <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-              <%= str_times = working_times(day.edit_started_at.floor_to(15.minutes) , day.edit_finished_at.floor_to(15.minutes)) %>
+            <% if day.started_at.present? && day.finished_at.present? %>
+              <%= str_times = working_times(day.started_at.floor_to(15.minutes) , day.finished_at.floor_to(15.minutes)) %>
               <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
             <% end %>
           </td>
@@ -214,6 +210,7 @@
         <td rowspan=2></td>
         <td rowspan=2></td>
         <td rowspan=2>
+          <%= "所属長承認" %><br>
           <% @attendances.each do |day| %>
             <% if day.monthly_request_status == "申請中" %>
               <%= "#{day.monthly_confirmation}へ申請中" %>

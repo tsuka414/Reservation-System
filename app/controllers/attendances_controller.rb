@@ -37,7 +37,20 @@ class AttendancesController < ApplicationController
   end
   
   def log_index
-    @logs = Attendance.where(edit_request_status: "承認", user_id: @user.id)
+    if params[:search].present?
+      select_day = params[:search]["worked_on(1i)"] + "-" +
+        format("%02d", params[:search]["worked_on(2i)"]) + "-" + 
+        format("%02d", params[:search]["worked_on(3i)"])
+      @first_day = select_day.to_date.beginning_of_month
+    else
+      @first_day = Date.today.to_date.beginning_of_month
+    end
+    @last_day = @first_day.end_of_month
+    if !@last_day.nil?
+      @logs = @user.attendances.where(worked_on: @first_day..@last_day).where(edit_request_status: "承認", user_id: @user.id)
+    else
+      @logs = Attendance.where(edit_request_status: "承認", user_id: @user.id)
+    end
   end
   
   # 残業申請
@@ -75,6 +88,7 @@ class AttendancesController < ApplicationController
     @user = User.find(params[:user_id])
     ActiveRecord::Base.transaction do
       notice_overwork_params.each do |id, item|
+        
         if item[:change] == "1" 
           attendance = Attendance.find(id)
           attendance.update_attributes!(item)
@@ -98,15 +112,44 @@ class AttendancesController < ApplicationController
   def update_notice_attendance
     @user = User.find(params[:user_id])
     ActiveRecord::Base.transaction do
+      n1 = 0
+      n2 = 0
+      n3 = 0
       notice_attendance_params.each do |id, item|
         if item[:change] == "1" 
           attendance = Attendance.find(id)
+          if item[:edit_request_status] == "なし"
+            n1 += 1
+            item[:edit_request_status] = nil
+            item[:edit_confirmation] = nil
+            attendance.note = nil
+            attendance.edit_started_at = nil
+            attendance.edit_finished_at = nil
+          elsif item[:edit_request_status] == "承認"
+            n2 += 1
+            if attendance.before_started_at.blank?
+              attendance.before_started_at = attendance.started_at
+            end
+            attendance.started_at = attendance.edit_started_at
+            if attendance.before_finished_at.blank?
+              attendance.before_finished_at = attendance.finished_at
+            end
+            attendance.note = nil
+            attendance.edit_started_at = nil
+            attendance.edit_finished_at = nil
+          elsif item[:edit_request_status] == "否認"
+            n3 += 1
+            attendance.note = nil
+            attendance.edit_started_at = nil
+            attendance.edit_finished_at = nil
+          end
           attendance.update_attributes!(item)
           flash[:success] = "変更を送信しました。"
         else
           flash[:notice] = "変更にチェックがないものは更新しませんでした。"
         end
       end
+      flash[:success] = "勤怠変更申請を#{n1}件なし、#{n2}件承認、#{n3}件否認にしました。"
       redirect_to @user
     rescue ActiveRecord::RecordInvalid
       flash[:danger] = "無効な入力があり変更を送信出来ないものがありました。"
@@ -121,18 +164,19 @@ class AttendancesController < ApplicationController
     ActiveRecord::Base.transaction do
       attendances_params.each do |id, item|
         if !item[:edit_confirmation].blank?
-          if item[:edit_started_at].blank? || item[:edit_finished_at].blank? || item[:note].blank?
-            flash[:danger] = "無効な入力があり変更を送信出来ませんでした。"
+          if item[:edit_started_at].blank? || item[:edit_finished_at].blank? || item[:note].blank? || item[:edit_confirmation].blank?
+            # flash[:danger] = "無効な入力があり変更を送信出来ませんでした。"
             redirect_to attendances_edit_one_month_user_url(date: params[:date]) and return
           else
             attendance = @user.attendances.find(id)
             attendance.approval_date = Date.current
             attendance.edit_request_status = "申請中"
             attendance.update_attributes!(item)
+            flash[:success] = "勤怠変更申請を更新しました。"
           end
         end
       end
-    flash[:success] = "勤怠変更申請を更新しました。"
+    
     redirect_to user_url(date: params[:date])
    rescue ActiveRecord::RecordInvalid
     flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
