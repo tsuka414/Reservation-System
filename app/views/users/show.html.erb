@@ -115,13 +115,13 @@
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
             <% elsif day.started_at.present? %>
-              <%= day.started_at.hour %>
+              <%= format_hour(day.started_at) %>
             <% end %>
           </td>
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
             <% elsif day.started_at.present? %>
-              <%= day.started_at.min %>
+              <%= format_min(day.started_at) %>
             <% end %>
           </td>
           <td>
@@ -132,13 +132,13 @@
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
             <% elsif day.finished_at.present? %>
-              <%= day.finished_at.hour %>
+              <%= format_hour(day.finished_at) %>
             <% end %>
           </td>
           <td>
             <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
             <% elsif day.finished_at.present? %>
-              <%= day.finished_at.min %>
+              <%= format_min(day.finished_at) %>
             <% end %>
           </td>
           <td>
@@ -210,14 +210,14 @@
         <td rowspan=2></td>
         <td rowspan=2></td>
         <td rowspan=2>
-          <%= "所属長承認" %><br>
+          <%= "【所属長承認欄】" %><br>
           <% @attendances.each do |day| %>
             <% if day.monthly_request_status == "申請中" %>
               <%= "#{day.monthly_confirmation}へ申請中" %>
             <% elsif day.monthly_request_status == "承認" %>
-              <%= "勤怠変更承認済" %>
+              <%= "所属長承認済" %>
             <% elsif day.monthly_request_status == "否認" %>
-              <%= "勤怠変更否認" %>
+              <%= "所属長否認" %>
             <% end %>
           <% end %>
           <br>
