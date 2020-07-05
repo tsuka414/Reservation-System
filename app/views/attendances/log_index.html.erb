@@ -28,10 +28,10 @@
       <% @logs.each do |day| %>
         <tr>
           <td><%= l(day.worked_on, format: :log) %></td>
-          <td><%= l(day.before_started_at, format: :time) if day.before_started_at.present? %></td>
-          <td><%= l(day.before_finished_at, format: :time) if day.before_finished_at.present? %></td>
-          <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td>
-          <td><%= l(day.finished_at, format: :time) if day.finished_at.present? %></td>
+          <td><%= format_hour(day.before_started_at) + ":" + format_min(day.before_started_at) if day.before_started_at.present? %></td>
+          <td><%= format_hour(day.before_finished_at) + ":" + format_min(day.before_finished_at) if day.before_finished_at.present? %></td>
+          <td><%= format_hour(day.started_at) + ":" + format_min(day.started_at) if day.started_at.present? %></td>
+          <td><%= format_hour(day.finished_at) + ":" + format_min(day.finished_at) if day.finished_at.present? %></td>
           <td><%= day.edit_confirmation %></td>
           <td><%= l(day.approval_date, format: :log) %></td>
         </tr>

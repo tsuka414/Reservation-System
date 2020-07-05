@@ -4,8 +4,12 @@ class BasesController < ApplicationController
   end
   
   def index
-    @bases = Base.all
-    @base = Base.new
+    if admin_user
+      @bases = Base.all
+      @base = Base.new
+    else
+      redirect_to root_url
+    end
   end
   
   def update
