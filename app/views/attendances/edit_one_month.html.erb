@@ -39,8 +39,8 @@
               <% end %>
               <td><%= attendance.check_box :next_day, id: "next_day" %></td>
               <td>
-                <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-                  <%= str_times = working_times(day.edit_started_at.floor_to(15.minutes) , day.edit_finished_at.floor_to(15.minutes)) %>
+                <% if day.started_at.present? && day.finished_at.present? %>
+                  <%= str_times = working_times(day.started_at.floor_to(15.minutes) , day.finished_at.floor_to(15.minutes)) %>
                   <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
                 <% end %>
               </td>

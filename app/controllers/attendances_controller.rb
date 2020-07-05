@@ -134,6 +134,7 @@ class AttendancesController < ApplicationController
             if attendance.before_finished_at.blank?
               attendance.before_finished_at = attendance.finished_at
             end
+            attendance.finished_at = attendance.edit_finished_at
             attendance.note = nil
             attendance.edit_started_at = nil
             attendance.edit_finished_at = nil

@@ -113,16 +113,10 @@
             <% end %>
           </td>
           <td>
-            <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-            <% elsif day.started_at.present? %>
-              <%= format_hour(day.started_at) %>
-            <% end %>
+            <%= format_hour(day.started_at) if day.started_at.present? %>
           </td>
           <td>
-            <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-            <% elsif day.started_at.present? %>
-              <%= format_min(day.started_at) %>
-            <% end %>
+            <%= format_min(day.started_at) if day.started_at.present? %>
           </td>
           <td>
             <% if (btn_text = attendance_state(day)) && day.started_at.nil? %>
@@ -130,16 +124,10 @@
             <% end %>
           </td>
           <td>
-            <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-            <% elsif day.finished_at.present? %>
-              <%= format_hour(day.finished_at) %>
-            <% end %>
+            <%= format_hour(day.finished_at) if day.finished_at.present? %>
           </td>
           <td>
-            <% if day.edit_request_status == "承認" || day.edit_request_status == "否認" %>
-            <% elsif day.finished_at.present? %>
-              <%= format_min(day.finished_at) %>
-            <% end %>
+            <%= format_min(day.finished_at) if day.finished_at.present? %>
           </td>
           <td>
             <% if (btn_text = attendance_state(day)) && day.started_at.present? && day.finished_at.nil? %>
