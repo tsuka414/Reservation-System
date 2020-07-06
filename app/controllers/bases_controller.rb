@@ -1,15 +1,16 @@
 class BasesController < ApplicationController
+  before_action :admin_user, only: [:index, :new, :update, :edit, :destroy, :create]
   
   def new
   end
   
+  def admin_user
+    redirect_to root_url unless current_user.admin?
+  end
+  
   def index
-    if admin_user
-      @bases = Base.all
-      @base = Base.new
-    else
-      redirect_to root_url
-    end
+    @bases = Base.all
+    @base = Base.new
   end
   
   def update
