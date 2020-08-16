@@ -2,8 +2,8 @@ require 'csv'
 
 CSV.generate do |csv|
   csv << ["勤怠情報"]
-  
-  
+
+
   column_names = %w(日付 出社時間 退社時間)
   csv << column_names
   @attendances.each do |attendance|
@@ -20,6 +20,6 @@ CSV.generate do |csv|
         ""
       end,
     ]
-    csv << column_values  
+    csv << column_values
   end
 end

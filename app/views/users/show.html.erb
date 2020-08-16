@@ -24,7 +24,7 @@
       <td>締め：<%= l(@last_day, format: :short) %></td>
     </tr>
   </table>
-  
+
 </div>
   <% if current_user.superior? %>
     <% if @monthly_notice != 0 %>
@@ -35,7 +35,7 @@
     <% else %>
       【所属長承認申請のお知らせ】
     <% end %><br>
-    
+
     <% if @attendance_notice!= 0 %>
       <div style="color: #ff0000">
          <%= link_to "【勤怠変更申請のお知らせ】", edit_notice_attendance_user_attendances_path(@user), remote: true, style: "color:#ff0000" %>
@@ -44,7 +44,7 @@
     <% else %>
       【勤怠変更申請のお知らせ】
     <% end %><br>
-   
+
     <% if @overwork_notice != 0 %>
       <div style="color: #ff0000">
          <%= link_to "【残業申請のお知らせ】", edit_notice_overwork_user_attendances_path(@user), remote: true, style: "color:#ff0000" %>
@@ -221,7 +221,7 @@
         <td colspan="6"><%= format_basic_info(@user.basic_work_time).to_f * @worked_sum %></td>
         <td colspan="2"><%= format("%.2f", @total_working_times.to_f) %></td>
       </tr>
-    </tfoot>    
+    </tfoot>
   </table>
 </div>
 
