@@ -1,0 +1,31 @@
+<div class="user-statistics">
+  <div class="aggregation-period">
+    <%= "#{Time.zone.now.year}年 #{Time.zone.now.month}月度の統計情報" %>
+  </div>
+  <div class="monthly-expenditure">
+    月の総支出: <%= extract_balances_of_current_month(user, 0) %> 円
+  </div>
+  <div class="monthly-income">
+    月の総収入: <%= extract_balances_of_current_month(user, 1) %> 円
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-sm-12 exp-inc-chart">
+      <div class="chart-title">
+        <%= "今月の収支比" %>
+      </div>
+      <div class="chart">
+        <%= pie_chart({ "収入" => extract_balances_of_current_month(user, 1), 
+                        "支出" => extract_balances_of_current_month(user, 0)}, 
+                        colors: ["#6cff5f","#ff8080"], suffix: "円", thousands: ",") %>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12 category-chart">
+      <div class="chart-title">
+        <%= "今月のカテゴリ別支出" %>
+      </div>
+      <div class="chart">
+        <%= pie_chart(*monthly_expenditure_by_category(user, Time.zone.now)) %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div id="user_statistics_carousel" class="carousel slide" data-ride="carousel" data-interval="false" style="height:600px">
+  <ol class="carousel-indicators">
+    <li data-target="#user_statistics_carousel" data-slide-to="0" class="active"></li>
+    <li data-target="#user_statistics_carousel" data-slide-to="1"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="item active">
+      <div class="monthly-balances-title">
+        <%= "#{Time.zone.now.year}年 #{Time.zone.now.month}月度の予約状況" %>
+      </div>
+      <%= render("shared/calendar", user: user) %>
+    </div>
+    <div class="item">
+      <div class="monthly-balances-title">
+        <%= "予約情報" %>
+      </div>
+      <%= render("shared/user_statistics", user: user) %>
+    </div>
+  </div>
+	<a class="left carousel-control" href="#user_statistics_carousel" role="button" data-slide="prev">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		<span class="sr-only">Prev</span>
+	</a>
+	<a class="right carousel-control" href="#user_statistics_carousel" role="button" data-slide="next">
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
+	</a>
+</div>

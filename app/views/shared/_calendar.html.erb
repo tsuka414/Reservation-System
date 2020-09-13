@@ -1,0 +1,18 @@
+<%= month_calendar(attribute: :record_date, events: user.daily_balances.all) do |date, balances| %>
+  <div class="day-number">
+    <%= date.day %>
+  </div>
+  <% balances.each do |balance| %>
+    <div class="simple-calendar-date">
+      <% if !empty_daily_balance?(balance) %>
+        <%= link_to "", user_daily_balance_url(user, balance.record_date) %>
+        <div class="amount-expenditure">
+          予約: <%= balance.expenditure %>件
+        </div>
+        <div class="amount-income">
+          キャンセル: <%= balance.income %>件
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

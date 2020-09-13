@@ -1,0 +1,44 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* header */
+.navbar {
+  background-color: #1127ec;
+  border: initial;
+}
+
+.navbar-toggle {
+  border: 1px solid white;
+  .icon-bar {
+    background-color: white;
+  }
+}
+
+.header-tohome {
+  margin: 12px 0 0 8px;
+  font-size: 18px;
+}
+
+header a {
+  color: white;
+  &:hover {
+    background-color: white;
+    color: #1127ec;
+  }
+}
+
+.welcome-text {
+  color: white;
+}
+
+/* footer */
+.footer-navbar {
+  background-color: #1127ec; 
+}
+
+footer a {
+  color: white;
+  &:hover {
+    color: #1127ec;
+  }
+}

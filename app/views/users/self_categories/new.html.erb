@@ -1,0 +1,34 @@
+<% provide(:title, '収支カテゴリの追加') %>
+<div class="category-setting-title">
+  収支カテゴリの追加
+</div>
+<div class="row">
+  <%= render("shared/setting_sidebar", settings: @settings_class, images: @images_class, category: @category_class) %>
+  <div class="col-md-6 category-setting-form">
+    <%= form_for(@category, url: user_self_categories_path) do |f| %>
+      <%= render("shared/error_messages") %>
+
+      <%= f.label :name, "カテゴリ名(必須項目)"%>
+      <%= f.text_field :name, class: "form-control" %>
+
+      <%= f.label :color, "カテゴリの色(必須項目)" %>
+      <%= f.color_field :color, class: "form-color-control" %>
+      <span id="color_value">#000000</span>
+
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+
+      <%= f.submit "カテゴリの追加", class: "btn category-setting-button" %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  // color_fieldで指定された色のコードを取得し、横に表示する。
+  function getSelectedColor()
+  {
+    const color_value = document.getElementById("category_color").value;
+    document.getElementById("color_value").innerText = color_value;
+  }
+
+  $(document).on("change", function(){ getSelectedColor(); });
+</script>

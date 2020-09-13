@@ -1,51 +1,202 @@
-.user-table {
-  vertical-align: middle;
+/* setting sidebar */
+.settings-sidebar {
+  padding: 10px 0;
+
+  .list-group-item {
+    margin: 5px 16px;
+    color: white;
+    font-size: 18px;
+    border: 2px ridge white;
+    border-radius: 10px;
+    background-color: #72d5c9;
+    &:hover {
+      background-color: #7aeede;
+      border: 2px ridge white;
+      color: white;
+    }
+  }
+
+  .active {
+    background-color: #7aeede;
+    border: 2px ridge white;
+  }
+}
+
+/* setting title */
+.settings-title {
+  margin: 40px 0 40px 0px;
+  color: white;
   text-align: center;
+  font-size: 24px;
+  background-color: #72d6c9;
+  border: 2px ridge #ffffff;
+  border-radius: 10px;
+  padding: 4px 15px 4px 15px;
+  width: 350px;
 }
 
-.btn-users-show {
-  margin-top: -10px;
-  margin-bottom: 10px;
-}
+/* default tag styles for users */
+.users {
+  padding: 60px 0;
+  background-color: #bce0dc;
 
-#table-attendances {
-  th {
-    vertical-align: middle;
+  /* signup */
+  .signup-title {
+    margin: 40px 0 20px 200px;
+    color: white;
     text-align: center;
+    font-size: 24px;
+    background-color: #72d6c9;
+    border: 2px ridge #ffffff;
+    border-radius: 10px;
+    padding: 4px 15px 4px 15px;
+    width: 280px;
   }
-  td {
-    vertical-align: middle;
+
+  .error-details {
+    color: #9c2510;
+  }
+
+  .signup-form {
+    color: #2b736a;
+
+    .form-control {
+      margin-bottom: 10px;
+    }
+
+    .signup-button {
+      margin-top: 20px;
+      font-size: 20px;
+      float: right;
+      padding: 5px 20px 5px 20px;
+      background-color: #72d6c9;
+      border-color: #7aeede;
+      color: white;
+      &:hover {
+        background-color: #7aeede;
+        border-color: #7aeede;
+        color: white;
+      }
+    }
+  }
+
+  /* profile page header */
+  .profile-header {
+    background-color: #333333;
+    margin-top: -10px;
+  }
+
+  /* profile page sidebar */
+  .profile-sidebar {
+    background-color: #df7599;
+    color: white;
+
+    .profile-icon {
+      margin-top: 16px;
+      padding: 20px;
+    }
+
+    .profile-name {
+      font-size: 28px;
+    }
+
+    .profile-created_at {
+      font-size: 18px;
+    }
+  }
+
+  /* profile page information */
+  .profile-information {
+    background-color: #ffc785;
+    color: white;
+  }
+
+  /* settings */
+  .settings-form {
+    color: #2b736a;
+
+    .form-control {
+      margin-bottom: 10px;
+    }
+
+    .settings-update-button {
+      margin-top: 20px;
+      font-size: 20px;
+      float: right;
+      padding: 5px 20px 5px 20px;
+      background-color: #72d6c9;
+      border-color: #7aeede;
+      color: white;
+      &:hover {
+        background-color: #7aeede;
+        border-color: #7aeede;
+        color: white;
+      }
+    }
+  }
+}
+
+/* Users::Image */
+.images {
+  .image-settings-form {
+    color: #2b736a;
+
+    .form-control {
+      margin-bottom: 10px;
+    }
+
+    .image-settings-update-button {
+      margin-top: 20px;
+      font-size: 20px;
+      float: right;
+      padding: 5px 20px 5px 20px;
+      background-color: #72d6c9;
+      border-color: #7aeede;
+      color: white;
+      &:hover {
+        background-color: #7aeede;
+        border-color: #7aeede;
+        color: white;
+      }
+    }
+  }  
+}
+
+/**/
+.self_categories {
+  /* category-setting */
+  .category-setting-title {
+    margin: 40px 0 40px 0px;
+    color: white;
     text-align: center;
+    font-size: 24px;
+    background-color: #72d6c9;
+    border: 2px ridge #ffffff;
+    border-radius: 10px;
+    padding: 4px 15px 4px 15px;
+    width: 350px;
   }
-}
 
-.label-signup {
-  margin-top: 5px;
-}
+  .category-setting-form {
+    color: #2b736a;
 
-.btn-signup {
-  margin-top: 10px;
-}
+    .form-control {
+      margin-bottom: 10px;
+    }
 
-.label-user--edit {
-  margin-top: 5px;
-}
-
-.btn-user--edit {
-  margin-top: 10px;
-}
-
-#table-users {
-  td {
-    vertical-align: middle;
+    .category-setting-button {
+      margin-top: 20px;
+      font-size: 20px;
+      float: right;
+      padding: 5px 20px 5px 20px;
+      background-color: #72d6c9;
+      border-color: #7aeede;
+      color: white;
+      &:hover {
+        background-color: #7aeede;
+        border-color: #7aeede;
+        color: white;
+      }
+    }
   }
-}
-
-label-basic-info {
-  margin-top: 5px;
-}
-
-.btn-basic-info {
-  margin: 15px 0;
-  width: 30%;
 }

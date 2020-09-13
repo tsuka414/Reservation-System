@@ -1,3 +1,246 @@
-// Place all the styles related to the StaticPages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/* default tag styles for static-pages */
+/* HACK:controller.controller_nameを使ってクラス名を生成している関係上、_表記になる */
+/* not logged in */
+.static_pages {
+  /* yield(body) */
+  padding: 60px 0;
+  background-image: url("bg.jpg");
+  background-size: cover;
+  background-color: gray;
+  background-blend-mode: multiply;
+
+    /* home page */
+  .signup-button {
+    background-color: rgb(15, 1, 1);
+    border-color: white;
+    color: white;
+    &:hover {
+      background-color: white;
+      color: white;
+    }
+  }
+
+  .home-jumbotron {
+    background-color: rgba(50,50,50,0.9);
+    color: white;
+
+    .sample-login {
+      margin-top: 20px;
+    }
+  }
+}
+
+/* logged in - ログイン中の場合はこのスタイルで上書きする */
+.body-logged-in {
+  padding: 60px 0;
+  background-image: initial;
+  background-color: white;
+
+  /* profile page header */
+  .profile-header {
+    background-color: #333333;
+    margin-top: -10px;
+  }
+
+  /* profile page sidebar */
+  .profile-sidebar {
+    background-color: #e92868;
+    color: white;
+    height: 700px;
+
+    .profile-icon {
+      margin-top: 16px;
+      padding: 20px;
+
+      .icon-image {
+        border: 4px ridge #ffc785;
+        border-radius: 10px;
+      }
+    }
+    
+    .book-record-form-control {
+      color: black;
+    }
+
+    /* new book-record form */
+    .book-record-form-on-sidebar {
+      .book-record-form-title {
+        background-color: #dc5583;
+        padding: 50px 20px;
+        border-radius: 15px;
+        border: 3px outset #df7599;
+        width: 100%;
+        margin: 20px 0;
+        font-size: 16px;
+
+        &:hover {
+          background-color: #ffebf2;
+          color: #dc5583;
+        }
+      }
+
+      .book-record-form {
+        select {
+          color: black;
+        }
+
+        input {
+          color: black;
+        }
+
+        label {
+          color: white;
+        }
+
+        .book-record-submit-button {
+          background-color: #dc5583;
+          padding: 6px 12px;
+          text-align: center;
+          border-radius: 15px;
+          border: 3px outset #df7599;
+          width: 80%;
+          margin: 4px 0 10px 24px;
+          font-size: 18px;
+          color: white;
+
+          &:hover {
+            background-color: #ffebf2;
+            color: #dc5583;
+          }
+        }
+      }
+    }
+  }
+
+  /* profile page information */
+  .profile-information {
+    background-color: #fdb472;
+    color: white;
+    height: 700px;
+
+    .monthly-balances-title {
+      margin: 8px 0 8px 0px;
+      color: white;
+      text-align: center;
+      font-size: 28px;
+      background-color: #fdb472;
+      border: 4px outset #fdb472;
+      padding: 8px 15px 8px 15px;
+    }
+
+    .user-statistics {
+      .aggregation-period {
+        font-size: 24px;
+        background-color: #ff9e45;
+        border: 1px outset #fdb472;
+        width: 40%;
+        text-align: center;
+        padding: 4px 12px;
+      }
+
+      .monthly-expenditure {
+        font-size: 24px;
+        width: 60%;
+        margin: 5px 0 2.5px 18px;
+        padding: 4px 12px;
+        background-color: #ff8080;
+      }
+
+      .monthly-income {
+        font-size: 24px;
+        width: 60%;
+        margin: 2.5px 0 0 18px;
+        padding: 4px 12px;
+        background-color: #6cff5f;
+      }
+
+      .chart-title {
+        font-size: 24px;
+        background-color: #ff9e45;
+        border: 1px outset #fdb472;
+        width: 100%;
+        text-align: center;
+        margin: 10px 0 10px 0;
+        padding: 4px 12px;
+      }
+    }
+
+    /* carousel-control override */
+    .carousel-control {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: 0 -15px;
+      width: 2%;
+      height: 700px;
+      font-size: 20px;
+      color: #fff;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+  }
+}
+
+/* for smartphone browser */
+@media screen and (max-width:1025px)
+{
+  /* logged in - ログイン中の場合はこのスタイルで上書きする */
+  .body-logged-in {
+    /* profile page header */
+    .profile-header {
+      margin: -10px -15px -16px -15px;
+    }
+  
+    /* profile page sidebar */
+    .profile-sidebar {
+      margin: 0px -15px 0 -15px;
+    }
+  
+    /* profile page information */
+    .profile-information {
+      height: 900px;
+      margin: 0px -15px 0 -15px;
+
+    .monthly-balances-title {
+      font-size: 18px;
+    }
+
+      .user-statistics {
+        .aggregation-period {
+          font-size: 14px;
+          width: 100%;
+        }
+  
+        .monthly-expenditure {
+          font-size: 16px;
+          width: 100%;
+          margin: initial;
+        }
+  
+        .monthly-income {
+          font-size: 16px;
+          width: 100%;
+          margin: initial;
+        }
+  
+        .chart-title {
+          font-size: 14px;
+          width: 100%;
+        }
+      }
+  
+      /* carousel-control override */
+      .carousel-control {
+        height: 900px;
+        width: 5%;
+      }
+
+      .carousel-indicators {
+        position: relative;
+        top: 850px;
+      }
+    }
+  }
+}
