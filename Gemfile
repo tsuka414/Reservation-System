@@ -35,7 +35,7 @@ gem 'bootsnap', '1.4.5', require: false
 # Calendar at /home
 gem 'simple_calendar', '2.3.0'
 # Create graph
-gem 'chartkick', '3.3.0'
+gem 'chartkick', '3.4.0'
 
 gem 'will_paginate' # １ページの件数制限
 gem 'bootstrap-will_paginate' # ページネーションのデザイン
