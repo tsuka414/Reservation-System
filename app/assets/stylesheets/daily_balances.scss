@@ -1,0 +1,194 @@
+.daily_balances {
+  /* yield(body) */
+  padding: 60px 0;
+
+  .record-date-title {
+    margin: 40px 0 40px 0px;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    background-color: #72d6c9;
+    border: 2px ridge #ffffff;
+    border-radius: 10px;
+    padding: 4px 15px 4px 15px;
+    width: 600px;
+  }
+
+  /* infomation sidebar */
+  .total-daily-balance-title {
+    margin: 0 0 2px 0px;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    background-color: #72d6c9;
+    border: 2px ridge #ffffff;
+    border-radius: 10px;
+    padding: 4px 15px 4px 15px;
+  }
+
+  .total-expenditure {
+    font-size: 28px;
+    border: 3px ridge white;
+    width: 70%;
+    color: white;
+    border-radius: 10px;
+    background-color: #ce0f0f;
+    padding: 10px;
+    margin: 10px 0 4px 50px;
+  }
+
+  .total-income {
+    font-size: 28px;
+    border: 3px ridge white;
+    width: 70%;
+    color: white;
+    border-radius: 10px;
+    background-color: #11cc00;
+    padding: 10px;
+    margin: 10px 0 4px 50px;
+  }
+
+  .daily-balance-ratio-title {
+    margin: 10px 0 5px 0px;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    background-color: #72d6c9;
+    border: 2px ridge #ffffff;
+    border-radius: 10px;
+    padding: 4px 15px 4px 15px;
+  }
+
+  .categorized-exp-chart-title {
+    margin: 20px 0 5px 0px;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    background-color: #72d6c9;
+    border: 2px ridge #ffffff;
+    border-radius: 10px;
+    padding: 4px 15px 4px 15px;
+  }
+
+  /* book_record list */
+  .book-record-element {
+    overflow: hidden;
+    margin: 10px 0;
+
+    .expenditure-category {
+      font-size: 30px;
+      margin-top: -18px;
+
+      span {
+        font-size: 48px;
+      }
+    }
+
+    .expenditure-amount {
+      font-size: 28px;
+      color: #f13d3d;
+      float: right;
+    }
+  
+    .income-category {
+      font-size: 30px;
+      margin-top: -18px;
+
+      span {
+        font-size: 48px;
+      }
+    }
+
+    .income-amount {
+      font-size: 28px;
+      color: #3dd030;
+      float: right;
+    }
+
+    .comment {
+      margin: 0 0 16px 0;
+    }
+
+    .delete-button-container {
+      margin-top: 30px;
+
+      .book-record-delete-button {
+        background-color: #72d5c9;
+        border: 3px outset #72d5c9;
+        border-radius: 10px;
+        font-size: 15px;
+        padding: 3px 10px;
+        text-align: center;
+        color: white;
+    
+        &:hover {
+          background-color: #7aeede;
+          border-color: #7aeede;
+          color: white;
+        }
+    
+        a {
+          color: white;
+        }
+      }
+    }
+  }
+
+  .back-link {
+    background-color: #72d5c9;
+    border: 3px outset #72d5c9;
+    border-radius: 10px;
+    font-size: 18px;
+    width: 70px;
+    text-align: center;
+    color: white;
+    float: right;
+    margin-bottom: 30px;
+
+    &:hover {
+      background-color: #7aeede;
+      border-color: #7aeede;
+      color: white;
+    }
+
+    a {
+      color: white;
+    }
+  }
+}
+
+@media screen and (max-width:1025px)
+{
+  .daily_balances {
+    .record-date-title {
+      margin: 20px 0 20px 0px;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    /* infomation sidebar */
+    .total-daily-balance-title {
+      font-size: 14px;
+    }
+
+    .total-expenditure {
+      font-size: 18px;
+      width: 100%;
+      margin: 4px 0 2px 0;
+    }
+
+    .total-income {
+      font-size: 18px;
+      width: 100%;
+      margin: 4px 0 2px 0;
+    }
+
+    .daily-balance-ratio-title {
+      font-size: 14px;
+    }
+  
+    .categorized-exp-chart-title {
+      font-size: 14px;
+    }
+  }
+}

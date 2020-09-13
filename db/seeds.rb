@@ -1,53 +1,38 @@
-# coding: utf-8
+User.create!(
+  name: "sample",
+  email: "sample@sample.com",
+  password: "samplesample",
+  password_confirmation: "samplesample"
+)
 
-User.create!(name: "Sample User",
-             email: "sample@email.com",
-             password: "password",
-             password_confirmation: "password",
-             admin: true,
-             superior: false)
+User.create!(
+  name: "mintia96",
+  email: "wazap1121@gmail.com",
+  password: "12345678",
+  password_confirmation: "12345678"
+)
 
-User.create!(name: "Jyotyo1",
-             email: "jyotyo1@email.com",
-             password: "password",
-             password_confirmation: "password",
-             admin: false,
-             superior: true)
-             
-User.create!(name: "Jyotyo2",
-             email: "jyotyo2@email.com",
-             password: "password",
-             password_confirmation: "password",
-             admin: false,
-             superior: true)
+User.create!(
+  name: "testuser",
+  email: "test1@gmail.com",
+  password: "12345678",
+  password_confirmation: "12345678"
+)
 
-User.create!(name: "General1",
-             email: "general1@email.com",
-             password: "password",
-             password_confirmation: "password",
-             admin: false,
-             superior: false)
+Category.create!(
+  name: "コース１",
+  color: "#ff8ab5",
+  user_id: 0
+)
 
-User.create!(name: "General2",
-             email: "general2@email.com",
-             password: "password",
-             password_confirmation: "password",
-             admin: false,
-             superior: false)
-             
-Base.create!(base_number: "1",
-             base_name: "東京",
-             base_format: "出勤"
-             )
-             
-Base.create!(base_number: "2",
-             base_name: "京都",
-             base_format: "出勤"
-             )
-             
-Base.create!(base_number: "3",
-             base_name: "三重",
-             base_format: "退勤"
-             )
-             
-             
+Category.create!(
+  name: "コース２",
+  color: "#8ac1ff",
+  user_id: 0
+)
+
+Category.create!(
+  name: "コース３",
+  color: "#8affbb",
+  user_id: 0
+)

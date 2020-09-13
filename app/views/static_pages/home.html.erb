@@ -1,0 +1,6 @@
+<%= provide(:title, "ホーム") %>
+<% if logged_in? %>
+  <%= render("static_pages/home_logged_in") %>
+<% else %>
+  <%= render("static_pages/home_not_logged_in") %>
+<% end %>

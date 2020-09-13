@@ -10,58 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200617065944) do
+ActiveRecord::Schema.define(version: 2020_08_31_132505) do
 
-  create_table "attendances", force: :cascade do |t|
-    t.date "worked_on"
-    t.datetime "started_at"
-    t.datetime "finished_at"
-    t.datetime "before_started_at"
-    t.datetime "before_finished_at"
-    t.datetime "edit_started_at"
-    t.datetime "edit_finished_at"
-    t.string "note"
-    t.time "scheduled_end_time"
-    t.boolean "next_day", default: false
-    t.boolean "change", default: false
-    t.string "business_process"
-    t.string "overwork_request_status"
-    t.string "edit_request_status"
-    t.string "monthly_request_status"
-    t.string "confirmation"
-    t.string "edit_confirmation"
-    t.string "monthly_confirmation"
-    t.date "approval_date"
+  create_table "book_records", force: :cascade do |t|
+    t.integer "direction"
+    t.integer "category"
+    t.integer "amount"
+    t.date "record_date"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_attendances_on_user_id"
+    t.text "comment"
+    t.index ["user_id", "record_date"], name: "index_book_records_on_user_id_and_record_date"
+    t.index ["user_id"], name: "index_book_records_on_user_id"
   end
 
-  create_table "bases", force: :cascade do |t|
-    t.integer "base_number"
-    t.string "base_name"
-    t.string "base_format"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.integer "user_id"
+  end
+
+  create_table "daily_balances", force: :cascade do |t|
+    t.integer "expenditure"
+    t.integer "income"
+    t.date "record_date"
+    t.integer "user_id"
+    t.index ["user_id", "record_date"], name: "index_daily_balances_on_user_id_and_record_date", unique: true
+    t.index ["user_id"], name: "index_daily_balances_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.integer "nunber"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.string "img"
+    t.string "header_image"
     t.string "remember_digest"
-    t.boolean "admin", default: false
-    t.boolean "superior", default: false
-    t.string "department"
-    t.integer "employee_number"
-    t.string "uid"
-    t.time "basic_work_time", default: "2000-01-01 08:00:00"
-    t.time "designated_work_start_time", default: "2000-01-01 09:00:00"
-    t.time "designated_work_end_time", default: "2000-01-01 18:00:00"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

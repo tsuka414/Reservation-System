@@ -1,15 +1,61 @@
-.label-login {
-  margin-top: 5px;
+/* default tag styles for sessions */
+.sessions {
+  padding-top: 60px;
+  background-color: #bce0dc;
+
+  /* login */
+  .login-title {
+    margin: 40px 0 20px 0px;
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    background-color: #72d6c9;
+    border: 2px ridge #ffffff;
+    border-radius: 10px;
+    padding: 4px 15px 4px 15px;
+    width: 280px;
+  }
+
+  .error-details {
+    color: #9c2510;
+  }
+
+  .login-form {
+    color: #2b736a;
+
+    .form-control {
+      margin-bottom: 10px;
+    }
+
+    .login-button {
+      margin-top: 20px;
+      font-size: 20px;
+      float: right;
+      padding: 5px 20px 5px 20px;
+      background-color: #72d6c9;
+      border-color: #7aeede;
+      color: white;
+      &:hover {
+        background-color: #7aeede;
+        border-color: #7aeede;
+        color: white;
+      }
+    }
+
+    .checkbox {
+      margin: 10px 0 10px 0;
+      padding-left: 20px;
+    }
+  }
 }
 
-.btn-login {
-  margin-top: 10px;
-}
-
-.check_box-login {
-  width: auto;
-  margin-left: 25px;
-  span {
-    font-weight: normal;
+/* for pc browser */
+@media screen and (min-width:1025px)
+{
+  .sessions {  
+    /* login */
+    .login-title {
+      margin: 40px 0 20px 200px;
+    }
   }
 }

@@ -2,21 +2,26 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all',
-                               'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application',
-                               'data-turbolinks-track': 'reload' %>
-    <%= render 'layouts/shim' %>
+    
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
+
+    <%= render("layouts/script_for_IE9") %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   </head>
-  <body>
-    <%= render 'layouts/header' %>
+
+  <% if logged_in? %>
+    <body class='<%= "#{controller.controller_name} body-logged-in" %>'>
+  <% else %>
+    <body class='<%= "#{controller.controller_name}" %>'>
+  <% end %>
+    <%= render("layouts/header") %>
     <div class="container">
-      <% flash.each do |message_type, msg| %>
-        <div class="alert alert-<%= message_type %>"><%= msg.html_safe %></div>
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
       <%= yield %>
-      <%= debug(params) if Rails.env.development? %>
     </div>
+    <%= render("layouts/footer") %>
   </body>
 </html>

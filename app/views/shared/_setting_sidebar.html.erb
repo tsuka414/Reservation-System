@@ -1,0 +1,4 @@
+<div class="col-md-3 settings-sidebar list-group">
+  <%= link_to "基本情報の変更", edit_user_path(@user), class: "list-group-item list-group-item-action #{settings}" %>
+  <%= link_to "収支カテゴリの追加", new_user_self_categories_path(@user), class: "list-group-item list-group-item-action #{category}" %>
+</div>

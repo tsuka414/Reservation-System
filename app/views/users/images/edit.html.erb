@@ -1,0 +1,39 @@
+<% provide(:title, "プロフィール画像の変更") %>
+<div class="settings-title">
+  プロフィール画像の変更
+</div>
+<div class="row">
+  <%= render("shared/setting_sidebar", settings: @settings_class, images: @images_class, category: @category_class) %>
+  <div class="col-md-6 image-settings-form">
+    <%= form_for(@user, url: user_images_path(@user), html: {id:"edit_user_image"}) do |f| %>
+      <%= render("shared/error_messages") %>
+
+      <%= f.label :header_image, "ヘッダー画像"%>
+      <%= f.file_field :header_image, accept: "image/jpeg, image/gif, image/png", class: "form-control" %>
+
+      <%= f.label :email, "プロフィール画像" %>
+      <%= f.file_field :img, accept: "image/jpeg, image/gif, image/png", class: "form-control" %>
+
+      <input type="button" value="設定の変更" name="commit" class="btn image-settings-update-button" data-disable-with="設定の変更" onClick="checkNilImages()" >
+    <% end %>
+    <%= link_to "初期画像に戻す", user_image_initializations_path(@user),
+                                class: "btn image-reset-button",
+                                method: :patch,
+                                data: {confirm: "画像を初期状態に戻しますか？"} %>
+  </div>
+</div>
+
+<script>
+function checkNilImages()
+{
+  const header_image_file = $("input[id='user_header_image']")[0].value;
+  const   icon_image_file = $("input[id='user_img']")[0].value;
+  if( header_image_file === "" && icon_image_file === "" )
+  {
+    alert("いずれの画像ファイルも選択されていません。");
+    return;
+  }
+
+  if( window.confirm("選択した画像ファイルをアップロードしますか？") ) $("#edit_user_image").submit();
+}
+</script>
