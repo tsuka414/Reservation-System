@@ -1,15 +1,13 @@
 <div class="book-record-form-on-sidebar">
-  <button class="book-record-form-title"
-      data-toggle="collapse"
-      data-target="#example-1"
-      aria-expand="false"
-      aria-controls="example-1">予約内容の登録(クリックで展開)</button>
-  <div class="collapse" id="example-1">
     <div class="book-record-form">
       <%= form_for(:book_record, url: book_records_path) do |f| %>
         <div class="direction-radio">
           <label><%= f.radio_button :direction, 0, :checked => "checked" %> 予約</label>
-          <label><%= f.radio_button :direction, 1 %> キャンセル</label>
+        </div>
+
+        <div class="record-date-field">
+          <%= f.label :record_date, "日付", class: "book-record-form-control" %>
+          <%= f.date_select :record_date, default: Time.zone.now, class: "book-record-form-control" %>
         </div>
 
         <div class="category-select">
@@ -19,18 +17,33 @@
         </div>
 
         <div class="amount-number-field">
-          <%= f.label :amount, "予約件数", class: "book-record-form-control" %>
-          <%= f.number_field :amount, class: "book-record-form-control" %> 件
+          <%= f.label :amount, "予約者名", class: "book-record-form-control" %><br>
+          <%= f.text_field :amount, class: "book-record-form-control" %>
         </div>
 
-        <div class="record-date-field">
-          <%= f.label :record_date, "日付", class: "book-record-form-control" %>
-          <%= f.date_select :record_date, default: Time.zone.now, class: "book-record-form-control" %>
+        <div class="amount-number-field">
+          <%= f.label :amount, "予約人数", class: "book-record-form-control" %><br>
+          <%= f.number_field :amount, class: "book-record-form-control" %>
+        </div>
+
+        <div class="amount-number-field">
+          <%= f.label :amount, "予約時間", class: "book-record-form-control" %><br>
+          <%= f.text_field :amount, class: "book-record-form-control" %>
         </div>
 
         <div class="comment-field">
-          <%= f.label :comment, "備考欄", class: "book-record-form-control" %>
-          <%= f.text_area :comment, class: "book-record-form-control", size: "25x3" %>
+          <%= f.label :comment, "記入者", class: "book-record-form-control" %><br>
+          <%= f.text_field :comment, class: "book-record-form-control" %>
+        </div>
+
+        <div class="amount-number-field">
+          <%= f.label :amount, "連絡先", class: "book-record-form-control" %><br>
+          <%= f.text_field :amount, class: "book-record-form-control" %>
+        </div>
+
+        <div class="comment-field">
+          <%= f.label :comment, "備考欄", class: "book-record-form-control" %><br>
+          <%= f.text_area :comment, class: "book-record-form-control", size:20*3 %>
         </div>
 
         <%= f.submit "予約内容の登録", class: "btn btn-primary book-record-submit-button" %>

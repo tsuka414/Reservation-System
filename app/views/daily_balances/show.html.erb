@@ -1,38 +1,20 @@
 <div class="daily-balances">
   <div class="record-date-title">
-    <%= "#{@user.name}さんの予約詳細 - #{@daily_balance.record_date.strftime("%Y年%m月%d日")}" %>
+    <%= "#{@daily_balance.record_date.strftime("%Y年%m月%d日")}" %>
   </div>
   <div class="row">
     <!-- 収支合計額・グラフ表示部 -->
     <div class="col-md-4 daily-balance-sidebar">
       <div class="total-daily-balance-title">
-        予約件数計
+        <%= "予約数: #{@daily_balance.expenditure} 件" %>
       </div>
-      <div class="total-expenditure">
-        <%= "予約: #{@daily_balance.expenditure} 件" %>
-      </div>
-      <div class="total-income">
-        <%= "キャンセル: #{@daily_balance.income} 件" %>
-      </div>
-      <div class="daily-balance-ratio-title">
-        キャンセル割合
-      </div>
-      <div class="exp-inc-chart">
-        <%= pie_chart(@daily_balance.expenditure_income_hashed, colors: ["#3dd030","#f13d3d"]) %>
-      </div>
-      <div class="categorized-exp-chart-title">
-        カテゴリ別支出
-      </div>
-      <div class="categorized-exp-chart">
-        <%= pie_chart(*daily_expenditure_by_category(@user.id, @daily_balance.record_date)) %>
-      </div>
+
     </div>
     <!-- 収支レコードリスト -->
     <div class="col-md-8">
       <ul class="book_record-list list-group">
         <% extract_book_records(@daily_balance.user_id, @daily_balance.record_date).each do |record| %>
           <li class="book-record-element list-group-item">
-            <% if record.direction.zero? %>
               <div class="daily-expenditure">
                 <div class="expenditure-category">
                   <%= "カテゴリ: #{record.category_name}" %><span style="color:<%= record.category_color %>">■</span>
@@ -40,38 +22,18 @@
                 <div class="comment">
                   <%= record.comment %>
                 </div>
-                <div class="expenditure-amount">
-                  <%= "キャンセル: #{record.amount} 件" %>
-                </div>
                 <div class="delete-button-container">
-                  <% if current_user?(@user) %>
                     <%= link_to "予約の削除", record, class: "book-record-delete-button", method: :delete, data: { confirm: "この予約データを削除しますか？" } %>
-                  <% end %>
-                </div>
-              </div>
-            <% else %>
-              <div class="daily-income">
-                <div class="income-category">
-                  <%= "カテゴリ: #{record.category_name}" %><span style="color:<%= record.category_color %>">■</span>
-                </div>
-                <div class="comment">
-                  <%= record.comment %>
-                </div>
-                <div class="income-amount">
-                  <%= "キャンセル: #{record.amount} 件" %>
                 </div>
                 <div class="delete-button-container">
-                  <% if current_user?(@user) %>
-                      <%= link_to "キャンセルの削除", record, class: "book-record-delete-button", method: :delete, data: { confirm: "このキャンセルデータを削除しますか？" } %>
-                  <% end %>
+                    <%= link_to "予約の編集", record, class: "book-record-delete-button", method: :delete, data: { confirm: "この予約データを削除しますか？" } %>
                 </div>
               </div>
-            <% end %>
           </li>
         <% end %>
       </ul>
       <div class="back-link">
-        <%= link_to "戻る", :back %>
+        <%= link_to "ホーム", root_path %>
       </div>
     </div>
   </div>
