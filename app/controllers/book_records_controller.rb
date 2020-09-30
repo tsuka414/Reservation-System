@@ -1,5 +1,6 @@
 class BookRecordsController < ApplicationController
   before_action :logged_in_user, only: %i[create destroy]
+
   def create
     @book_record = current_user.book_records.build(book_record_params)
     if @book_record.save
