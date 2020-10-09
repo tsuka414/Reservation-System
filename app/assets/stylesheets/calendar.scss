@@ -2,19 +2,26 @@
 .simple-calendar {
   color: black;
 
+  /* day of the week */
   thead {
-    background-color: #ffb067;
-    color: #ffe7c9;
+    background-color: #0099FF;
+    color: #FFFFFF;
     font-size: 16px;
+    border: solid #0099FF;
+    
+    th {
+      border: solid #0099FF;
+      text-align: center;
+    }
   }
 
   .calendar-heading {
+    text-align: center;
+
     a {
-      background-color: #ff9e44;
+      background-color: #0099FF;
       padding: 4px 12px;
-      border-radius: 10px;
-      border: 2px outset #ffb067;
-      color: #fff0e2;
+      color: white;
 
       &:hover {
         background-color: #fff7ed;
@@ -27,18 +34,29 @@
       color: white;
       margin: 10px 10px;
       padding: 5px 30px;
-      border: 2px outset orange;
-      background-color: #ff9e45;
+      border: 2px  #0099FF;
+      background-color: #0099FF;
     }
   }
 
   .table-striped {
     margin-top: 10px;
+    position: relative;
+  }
+
+  .table-striped::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 101%;
+    display: block;
+    border: solid white;
   }
 
   .day {
-    background-color: #ffe8ca;
+    background-color: #FFFFFF;
     position: relative;
+    border: solid 3px #0099FF;
 
     a {
       position: absolute;
@@ -50,13 +68,13 @@
 
     .day-number {
       font-size: 20px;
-      color: #f39200;
+      color: #000000;
     }
   }
 
   /* Row of Sunday */
   .wday-0 {
-    background-color: #ffd1d1;
+    background-color: #FF82B2;
 
     .day-number {
       color: #f13d3d;
@@ -65,10 +83,10 @@
 
   /* Row of Saturday */
   .wday-6 {
-    background-color: #d1e3ff;
+    background-color: #FFD772;
 
     .day-number {
-      color: #006eff;
+      color: 	#FFBB00;
     }
   }
 

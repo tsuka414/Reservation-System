@@ -32,9 +32,9 @@
 
 /* logged in - ログイン中の場合はこのスタイルで上書きする */
 .body-logged-in {
-  padding: 60px 0;
+  padding: 60px 0px;
   background-image: initial;
-  background-color: white;
+  background-color: #0099FF;
 
   /* profile page header */
   .profile-header {
@@ -44,7 +44,7 @@
 
   /* profile page sidebar */
   .profile-sidebar {
-    background-color: #e92868;
+    background-color: #0099FF;
     color: white;
     height: 700px;
 
@@ -64,6 +64,8 @@
 
     /* new book-record form */
     .book-record-form-on-sidebar {
+      margin-top: 50px;
+
       .book-record-form-title {
         background-color: #dc5583;
         padding: 50px 20px;
@@ -77,6 +79,11 @@
           background-color: #ffebf2;
           color: #dc5583;
         }
+      }
+
+      .book-record-border {
+        border: solid white;
+        padding-left: 5px;
       }
 
       .book-record-form {
@@ -93,13 +100,13 @@
         }
 
         .book-record-submit-button {
-          background-color: #dc5583;
+          background-color: #fdb472;
           padding: 6px 12px;
           text-align: center;
           border-radius: 15px;
-          border: 3px outset #df7599;
+          border: 3px solid #FFFFCC;
           width: 80%;
-          margin: 4px 0 10px 24px;
+          margin: 10px 0 10px 24px;
           font-size: 18px;
           color: white;
 
@@ -114,17 +121,17 @@
 
   /* profile page information */
   .profile-information {
-    background-color: #fdb472;
+    background-color: #0099FF;
     color: white;
     height: 700px;
+    margin-top: 50px;
 
     .monthly-balances-title {
       margin: 8px 0 8px 0px;
       color: white;
       text-align: center;
       font-size: 28px;
-      background-color: #fdb472;
-      border: 4px outset #fdb472;
+      background-color: #0099FF;
       padding: 8px 15px 8px 15px;
     }
 
@@ -170,13 +177,13 @@
       position: absolute;
       top: 0;
       bottom: 0;
-      margin: 0 -15px;
+      margin: 0 -20px;
       width: 2%;
       height: 700px;
       font-size: 20px;
       color: #fff;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0);
+      background-color: #0099FF;
       filter: alpha(opacity=50);
       opacity: 0.5;
     }
@@ -239,7 +246,7 @@
 
       .carousel-indicators {
         position: relative;
-        top: 850px;
+        top: 860px;
       }
     }
   }
