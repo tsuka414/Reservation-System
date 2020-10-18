@@ -1,11 +1,17 @@
 class BookRecord < ApplicationRecord
-  belongs_to :user
-  validates(:user_id, presence: true)
-  validates(:direction, presence: true, numericality: { less_than_or_equal_to: 1 })
+  #validates(:user_id, presence: true)
+  #validates(:direction, presence: true, numericality: { less_than_or_equal_to: 1 })
   validates(:category, presence: true)
-  validates(:amount, presence: true, numericality: { greater_than: 0 })
+  #validates(:amount, presence: true, numericality: { greater_than: 0 })
   validates(:record_date, presence: true)
   validates(:comment, length: { maximum: 140 })
+  validates(:name, presence: true, length: { maximum: 50 })
+  validates(:number, presence: true)
+  validates(:started_at, presence: true)
+  validates(:writer, presence: true, length: { maximum: 50 })
+  VALID_NUMBER_REGEX = /\A\d{11}\z/
+  validates(:contact, presence: true,
+            format: { with: VALID_NUMBER_REGEX })
 
   # 実際にはメンバ変数ではないが、メンバ変数のように振舞うメソッド
   # ex. book_record.category_name => 趣味

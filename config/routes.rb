@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   # book_records
-  resources :book_records, only: %i[create destroy]
+  resources :book_records, :except => :new
 
   # sessions
   get "/login", to: "sessions#new"
