@@ -7,3 +7,17 @@ ja:
         name: ユーザーID
         email: メールアドレス
         password: パスワード
+      book_record:
+        name: 予約者名
+        number: 人数
+        category: カテゴリー
+        contact: 連絡先
+        time: 予約時間
+        comment: 備考
+        writer: 記入者
+  time:
+    formats:
+      default: "%Y年%m月"
+      long: "%Y/%m/%d %H:%M"
+      short: "%m/%d %H:%M"
+      time: "%H:%M"

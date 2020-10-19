@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
-  has_many :book_records, dependent: :destroy
   has_many :daily_balances, dependent: :destroy
   before_save { email.downcase! }
   mount_uploader :img, ImgUploader

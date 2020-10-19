@@ -1,11 +1,18 @@
 class BookRecordsController < ApplicationController
   before_action :logged_in_user, only: %i[create destroy]
+  before_action :set_book_record, only: %i[edit update destroy]
+
+  def index
+    @day = params[:date].nil? ?
+    Date.current : params[:date].to_date
+    @book_records = BookRecord.where(record_date: @day).order(:record_date)
+  end
 
   def create
-    @book_record = current_user.book_records.build(book_record_params)
+    @book_record = BookRecord.new(book_record_params)
     if @book_record.save
-      update_daily_balance(@book_record)
-      flash[:success] = "新しい収支が記録されました！"
+      #update_daily_balance(@book_record)
+      flash[:success] = "予約が完了しました。"
       redirect_to(root_url)
     else
       flash.now[:danger] = "入力に不備があります。"
@@ -13,18 +20,36 @@ class BookRecordsController < ApplicationController
     end
   end
 
-  def destroy
+  def edit
+  end
+
+  def update
     @book_record = BookRecord.find(params[:id])
-    reduce_daily_balance(@book_record)
+    if @book_record.update_attributes(book_record_params)
+      flash[:success] = '予約情報を更新しました。'
+      redirect_to(book_records_path(params: {date: @book_record.record_date}))
+    else
+      flash.now[:danger] = "入力に不備があります。"
+    end
+  end
+
+  def destroy
+    #reduce_daily_balance(@book_record)
     @book_record.destroy
-    flash[:success] = "収支データを削除しました。"
+    flash[:success] = "予約を削除しました。"
     redirect_back(fallback_location: root_path)
   end
 
   private
 
   def book_record_params
-    params.require(:book_record).permit(:direction, :category, :amount, :record_date, :comment)
+    params[:book_record].permit(:name, :category, :number, :record_date, :comment, :started_at, :finished_at, :writer, :contact)
+  end
+
+  # before_action
+
+  def set_book_record
+    @book_record = BookRecord.find(params[:id])
   end
 
   # book_record.record_dateとcurrent_user.idの複合キーを持つレコードがDailyBalanceモデル上に存在しない場合、

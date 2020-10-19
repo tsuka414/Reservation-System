@@ -2,14 +2,14 @@
   <div class="day-number">
     <%= date.day %>
   </div>
-  <% balances.each do |balance| %>
+  <%# balances.each do |balance| %>
     <div class="simple-calendar-date">
-      <% if !empty_daily_balance?(balance) %>
-        <%= link_to "", user_daily_balance_url(user, balance.record_date) %>
+      <% if BookRecord.find_by(record_date: date).present? %>
+        <%= link_to "", book_records_path(params: {date: date}) %>
         <div class="amount-expenditure">
-          予約: <%= balance.expenditure %>件
+          予約: <%= BookRecord.where(record_date: date).count %>件
         </div>
       <% end %>
     </div>
-  <% end %>
+  <%# end %>
 <% end %>

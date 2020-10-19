@@ -1,0 +1,35 @@
+<div class="book-record-index">
+  <h1><%= @day %>の予約状況</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-md-2"><%= BookRecord.human_attribute_name :name %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :number %></th>
+        <th class="col-md-2"><%= BookRecord.human_attribute_name :contact %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :time %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :category %></th>
+        <th class="col-md-3"><%= BookRecord.human_attribute_name :comment %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :writer %></th>
+      </tr>
+    </thead>
+
+    <% @book_records.each do |book_record| %>
+      <tr>
+        <td><%= book_record.name %></td>
+        <td><%= book_record.number %></td>
+        <td><%= book_record.contact %></td>
+        <td><%= l book_record.started_at, format: :time %>~<%= l book_record.finished_at, format: :time  if book_record.finished_at? %></td>
+        <td><%= book_record.category %></td>
+        <td><%= book_record.comment %></td>
+        <td><%= book_record.writer %></td>
+        <td><%= link_to  "編集", edit_book_record_path(book_record), remote: true %></td>
+        <td><%= link_to  "削除", book_record, method: :delete,
+                data: { confirm: "削除してもよろしいですか？。" } %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<!--モーダルウインドウ表示-->
+<div id="edit" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
