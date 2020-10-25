@@ -7,49 +7,49 @@
         </div>
 
         <div class="record-date-field">
-          <%= f.label :record_date, "日付", class: "book-record-form-control" %>
-          <%= f.date_select :record_date, default: Time.zone.now, class: "book-record-form-control" %>
+          <%= f.label :record_date, "日付", class: "book-record-#{yield(:class_text)}" %>
+          <%= f.date_select :record_date, default: Time.zone.now, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
         <div class="category-select">
-          <%= f.label :category, "カテゴリ", class: "book-record-form-control" %>
+          <%= f.label :category, "カテゴリ", class: "book-record-#{yield(:class_text)}" %>
           <%= f.hidden_field :category, :value => 0 %>
           <%= f.select :category, Category.where("(user_id = ?) OR (user_id = ?)", 0, current_user.id).map { |category| [category.name, category.id] } %>
         </div>
 
         <div class="amount-number-field">
-          <%= f.label :name, "予約者名", class: "book-record-form-control" %><br>
-          <%= f.text_field :name, class: "book-record-form-control" %>
+          <%= f.label :name, "予約者名", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.text_field :name, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
         <div class="amount-number-field">
-          <%= f.label :number, "予約人数", class: "book-record-form-control" %><br>
-          <%= f.number_field :number, class: "book-record-form-control" %>
+          <%= f.label :number, "予約人数", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.number_field :number, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
         <div class="amount-number-field">
-          <%= f.label :started_at, "予約開始時間", class: "book-record-form-control" %> 〜
-          <%= f.label :finished_at, "予約終了時間", class: "book-record-form-control" %><br>
-          <%= f.time_field :started_at, class: "book-record-form-control" %> 〜
-          <%= f.time_field :finished_at, class: "book-record-form-control" %>
+          <%= f.label :started_at, "予約開始時間", class: "book-record-#{yield(:class_text)}" %> 〜
+          <%= f.label :finished_at, "予約終了時間", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.time_field :started_at, class: "book-record-#{yield(:class_text)}" %> 〜
+          <%= f.time_field :finished_at, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
         <div class="comment-field">
-          <%= f.label :writer, "記入者", class: "book-record-form-control" %><br>
-          <%= f.text_field :writer, class: "book-record-form-control" %>
+          <%= f.label :writer, "記入者", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.text_field :writer, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
         <div class="amount-number-field">
-          <%= f.label :contact, "連絡先", class: "book-record-form-control" %><br>
-          <%= f.text_field :contact, class: "book-record-form-control" %>
+          <%= f.label :contact, "連絡先", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.text_field :contact, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
         <div class="comment-field">
-          <%= f.label :comment, "備考欄", class: "book-record-form-control" %><br>
-          <%= f.text_area :comment, class: "book-record-form-control", size:20*3 %>
+          <%= f.label :comment, "備考欄", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.text_area :comment, class: "book-record-#{yield(:class_text)}", size:20*3 %>
         </div>
       </div>
-      <%= f.submit yield(:button_text), class: "btn btn-primary book-record-submit-button" %>
+      <%= f.submit yield(:button_text), class: "btn btn-primary book-record-#{yield(:submit_text)}" %>
     <% end %>
   </div>
 </div>

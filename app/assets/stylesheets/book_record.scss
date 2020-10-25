@@ -8,8 +8,24 @@
   a {
     color: white;
   }
+
 }
 
 .modal-dialog-center {
-  padding-top: 10%;
+  padding-top: 7%;
+  width: 30%;
+  height: 80%;
+
+  h1 {
+    text-align: center;
+  }
+
+  .modal-body {
+    margin-left: 210px;
+    margin-right: auto;
+  }
+
 }
+
+
+
