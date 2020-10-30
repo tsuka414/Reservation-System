@@ -1,6 +1,6 @@
 User.create!(
   name: "sample",
-  email: "sample1@sample.com",
+  email: "sample@sample.com",
   password: "samplesample",
   password_confirmation: "samplesample"
 )
