@@ -21,18 +21,15 @@ User.create!(
 
 Category.create!(
   name: "コース１",
-  color: "#ff8ab5",
   user_id: 0
 )
 
 Category.create!(
   name: "コース２",
-  color: "#8ac1ff",
   user_id: 0
 )
 
 Category.create!(
   name: "コース３",
-  color: "#8affbb",
   user_id: 0
 )
