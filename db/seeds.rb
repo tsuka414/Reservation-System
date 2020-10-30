@@ -5,31 +5,17 @@ User.create!(
   password_confirmation: "samplesample"
 )
 
-User.create!(
-  name: "mintia96",
-  email: "wazap1121@gmail.com",
-  password: "12345678",
-  password_confirmation: "12345678"
-)
-
-User.create!(
-  name: "testuser",
-  email: "test1@gmail.com",
-  password: "12345678",
-  password_confirmation: "12345678"
-)
-
 Category.create!(
-  name: "コース１",
+  name: "宴会",
   user_id: 0
 )
 
 Category.create!(
-  name: "コース２",
+  name: "席のみ",
   user_id: 0
 )
 
 Category.create!(
-  name: "コース３",
+  name: "ランチ",
   user_id: 0
 )
