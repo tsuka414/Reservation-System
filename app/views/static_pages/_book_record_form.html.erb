@@ -18,35 +18,35 @@
         </div>
 
         <div class="amount-number-field">
-          <%= f.label :name, "予約者名", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.label :name, "予約者名(必須)", class: "book-record-#{yield(:class_text)}" %><br>
           <%= f.text_field :name, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
         <div class="amount-number-field">
-          <%= f.label :number, "予約人数", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.label :number, "予約人数(必須)", class: "book-record-#{yield(:class_text)}" %><br>
           <%= f.number_field :number, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
         <div class="amount-number-field">
-          <%= f.label :started_at, "予約開始時間", class: "book-record-#{yield(:class_text)}" %> 〜
+          <%= f.label :started_at, "予約開始時間(必須)", class: "book-record-#{yield(:class_text)}" %> 〜
           <%= f.label :finished_at, "予約終了時間", class: "book-record-#{yield(:class_text)}" %><br>
           <%= f.time_field :started_at, class: "book-record-#{yield(:class_text)}" %> 〜
           <%= f.time_field :finished_at, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
-        <div class="comment-field">
-          <%= f.label :writer, "記入者", class: "book-record-#{yield(:class_text)}" %><br>
-          <%= f.text_field :writer, class: "book-record-#{yield(:class_text)}" %>
-        </div>
-
         <div class="amount-number-field">
-          <%= f.label :contact, "連絡先", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.label :contact, "連絡先(必須)", class: "book-record-#{yield(:class_text)}" %><br>
           <%= f.text_field :contact, class: "book-record-#{yield(:class_text)}" %>
         </div>
 
         <div class="comment-field">
           <%= f.label :comment, "備考欄", class: "book-record-#{yield(:class_text)}" %><br>
           <%= f.text_area :comment, class: "book-record-#{yield(:class_text)}", size:20*3 %>
+        </div>
+
+        <div class="comment-field">
+          <%= f.label :writer, "記入者(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+          <%= f.text_field :writer, class: "book-record-#{yield(:class_text)}" %>
         </div>
       </div>
       <%= f.submit yield(:button_text), class: "btn btn-primary book-record-#{yield(:submit_text)}" %>

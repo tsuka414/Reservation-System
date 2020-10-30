@@ -15,7 +15,7 @@ class BookRecordsController < ApplicationController
       flash[:success] = "予約が完了しました。"
       redirect_to(root_url)
     else
-      flash.now[:danger] = "入力に不備があります。"
+      flash.now[:danger] = "必須項目を入力してください。"
       render("static_pages/home")
     end
   end

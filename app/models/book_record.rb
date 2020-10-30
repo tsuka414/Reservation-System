@@ -9,7 +9,8 @@ class BookRecord < ApplicationRecord
   validates(:number, presence: true)
   validates(:started_at, presence: true)
   validates(:writer, presence: true, length: { maximum: 50 })
-  VALID_NUMBER_REGEX = /\A\d{11}\z/
+  VALID_NUMBER_REGEX = /\A\d{11}\z/ 
+  VALID_NUMBER_REGEX = /\A\d{6}\z/
   validates(:contact, presence: true,
             format: { with: VALID_NUMBER_REGEX })
 
