@@ -11,6 +11,10 @@
       <%= f.label :name, "コース名(必須項目)"%>
       <%= f.text_field :name, class: "form-control" %>
 
+      <%= f.label :color, "" %>
+      <%= f.color_field :color, class: "form-color-control" %>
+      <span id="color_value">←無視してください</span>
+
       <%= f.hidden_field :user_id, :value => current_user.id %>
       <%= f.submit "コースの追加", class: "btn category-setting-button" %>
     <% end %>
