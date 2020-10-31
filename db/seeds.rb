@@ -7,15 +7,18 @@ User.create!(
 
 Category.create!(
   name: "宴会",
+  color:"#FFFFFF",
   user_id: 0
 )
 
 Category.create!(
   name: "席のみ",
+  color:"#FFFFFF",
   user_id: 0
 )
 
 Category.create!(
   name: "ランチ",
+  color:"#FFFFFF",
   user_id: 0
 )
