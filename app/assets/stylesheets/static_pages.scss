@@ -34,7 +34,7 @@
 .body-logged-in {
   padding: 60px 0px;
   background-image: initial;
-  background-color: #0099FF;
+  background-color: #FDF5E6;
 
   /* profile page header */
   .profile-header {
@@ -44,8 +44,8 @@
 
   /* profile page sidebar */
   .profile-sidebar {
-    background-color: #0099FF;
-    color: white;
+    background-color: #FDF5E6;
+    color: #90916A;
     height: 700px;
 
     .profile-icon {
@@ -82,7 +82,7 @@
       }
 
       .book-record-border {
-        border: solid white;
+        border: solid #90916A;
         padding-left: 5px;
       }
 
@@ -96,19 +96,19 @@
         }
 
         label {
-          color: white;
+          color: #90916A;
         }
 
         .book-record-submit-button {
-          background-color: #fdb472;
+          background-color: #a0d8ef;
           padding: 6px 12px;
           text-align: center;
           border-radius: 15px;
-          border: 3px solid #FFFFCC;
+          border: 3px solid #a0d8ef;
           width: 80%;
           margin: 10px 0 10px 24px;
           font-size: 18px;
-          color: white;
+          color: #007bbb;
 
           &:hover {
             background-color: #ffebf2;
@@ -121,17 +121,17 @@
 
   /* profile page information */
   .profile-information {
-    background-color: #0099FF;
+    background-color: #FDF5E6;
     color: white;
     height: 700px;
     margin-top: 50px;
 
     .monthly-balances-title {
       margin: 8px 0 8px 0px;
-      color: white;
+      color: #484835;
       text-align: center;
       font-size: 28px;
-      background-color: #0099FF;
+      background-color: #FDF5E6;
       padding: 8px 15px 8px 15px;
     }
 
@@ -183,7 +183,7 @@
       font-size: 20px;
       color: #fff;
       text-align: center;
-      background-color: #0099FF;
+      background-color: #FDF5E6;
       filter: alpha(opacity=50);
       opacity: 0.5;
     }

@@ -4,13 +4,13 @@
 
   /* day of the week */
   thead {
-    background-color: #0099FF;
-    color: #FFFFFF;
-    font-size: 16px;
-    border: solid #0099FF;
+    background-color: #ede4cd;
+    color: #484835;
+    font-size: 14px;
+    border: solid #90916A;
     
     th {
-      border: solid #0099FF;
+      border: solid #90916A;
       text-align: center;
     }
   }
@@ -19,7 +19,7 @@
     text-align: center;
 
     a {
-      background-color: #0099FF;
+      background-color: #90916A;
       padding: 4px 12px;
       color: white;
 
@@ -35,7 +35,7 @@
       margin: 10px 10px;
       padding: 5px 30px;
       border: 2px  #0099FF;
-      background-color: #0099FF;
+      background-color: #90916A;
     }
   }
 
@@ -44,19 +44,12 @@
     position: relative;
   }
 
-  .table-striped::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 101%;
-    display: block;
-    border: solid white;
-  }
+ 
 
   .day {
-    background-color: #FFFFFF;
+    background-color: #fff1cf;
     position: relative;
-    border: solid 3px #0099FF;
+    border: solid 3px #90916A;
 
     a {
       position: absolute;
@@ -68,25 +61,25 @@
 
     .day-number {
       font-size: 20px;
-      color: #000000;
+      color: #90916A;
     }
   }
 
   /* Row of Sunday */
   .wday-0 {
-    background-color: #FF82B2;
+    background-color: #fff1cf;
 
     .day-number {
-      color: #f13d3d;
+      color: #e2041b;
     }
   }
 
   /* Row of Saturday */
   .wday-6 {
-    background-color: #FFD772;
+    background-color: #fff1cf;
 
     .day-number {
-      color: 	#FFBB00;
+      color: 	#2ca9e1;
     }
   }
 
