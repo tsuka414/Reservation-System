@@ -1,8 +1,8 @@
 User.create!(
-  name: "sample",
-  email: "sample@sample.com",
-  password: "samplesample",
-  password_confirmation: "samplesample"
+  name: "賛急屋",
+  email: "398@sankyuya.com",
+  password: "sankyuya",
+  password_confirmation: "sankyuya"
 )
 
 Category.create!(
@@ -19,6 +19,12 @@ Category.create!(
 
 Category.create!(
   name: "ランチ",
+  color:"#FFFFFF",
+  user_id: 0
+)
+
+Category.create!(
+  name: "弁当",
   color:"#FFFFFF",
   user_id: 0
 )

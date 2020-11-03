@@ -14,7 +14,7 @@
         <div class="category-select">
           <%= f.label :category, "カテゴリ", class: "book-record-#{yield(:class_text)}" %>
           <%= f.hidden_field :category, :value => 0 %>
-          <%= f.select :category, Category.where("(user_id = ?) OR (user_id = ?)", 0, current_user.id).map { |category| [category.name, category.id] } %>
+          <%= f.select :category, Category.where("(user_id = ?) OR (user_id = ?)", 0, current_user.id).map { |category| [category.name] } %>
         </div>
 
         <div class="amount-number-field">
