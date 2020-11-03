@@ -2,7 +2,7 @@ class CreateBookRecords < ActiveRecord::Migration[5.1]
   def change
     create_table :book_records do |t|
       t.integer :type
-      t.integer :category
+      t.string :category
       t.integer :amount
       t.date :record_date
       t.references :user, foreign_key: true

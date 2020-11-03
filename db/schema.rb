@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_101422) do
 
   create_table "book_records", force: :cascade do |t|
     t.integer "direction"
-    t.integer "category"
+    t.string "category"
     t.integer "amount"
     t.date "record_date"
     t.integer "user_id"
