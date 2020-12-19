@@ -1,0 +1,29 @@
+<% provide(:button_text, '書き込む') %>
+<% provide(:class_text, 'form-control') %>
+<% provide(:submit_text, 'submit-button') %>
+
+<div class="post">
+  <h1>要望掲示板</h1>
+  <p>実装して欲しい機能などのリクエストがございましたら　こちらの掲示板へご投稿ください</p>
+ 
+  <div class="post-index col-md-10 col-md-offset-1">
+    <div class="col-md-6 col-md-offset-3">
+      <%= render ("new") %>
+    </div>
+  </div>
+
+  <div class="post-show col-md-10 col-md-offset-1">
+    <table class="table">
+      <% @posts.each do |post| %>
+        <tr>
+          <td><%= post.content %></td>
+          <td>
+            <%= link_to  "削除", post_path(post), method: :delete,
+                data: { confirm: "削除してもよろしいですか？。" },
+                class: "post-btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
