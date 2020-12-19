@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_17_101422) do
+ActiveRecord::Schema.define(version: 2020_12_13_010445) do
 
   create_table "book_records", force: :cascade do |t|
     t.integer "direction"
@@ -44,6 +44,12 @@ ActiveRecord::Schema.define(version: 2020_10_17_101422) do
     t.integer "user_id"
     t.index ["user_id", "record_date"], name: "index_daily_balances_on_user_id_and_record_date", unique: true
     t.index ["user_id"], name: "index_daily_balances_on_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

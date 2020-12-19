@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   # book_records
   resources :book_records, :except => :new
 
+  # post
+  resources :posts, only: %i[create destroy index]
+
   # sessions
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

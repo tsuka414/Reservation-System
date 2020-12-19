@@ -1,0 +1,12 @@
+<%= form_for(:post, local: true) do |f| %>
+  <table>
+    <tr>
+      <td><%= f.label :content, "本文" %></td>
+      <td><%= f.text_area :content, size: "40x5", placeholder: "200文字以内", class: "post-index-#{yield(:class_text)}" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :content, "書き込み" %></td>
+      <td><%= f.submit yield(:button_text), class: "btn post-index-#{yield(:submit_text)}" %></td>
+    </tr>
+  </table>
+<% end %>

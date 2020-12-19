@@ -1,0 +1,33 @@
+.post {
+  text-align: center;
+  color: #484835;
+
+  .post-index {
+    height: 160px;
+    background-color: #fff1cf;
+    padding-top: 10px;
+  }
+
+  .post-show {
+    margin-top: 30px;
+    background-color: #fff1cf;
+    text-align: center;
+    border: #90916A;
+  }
+
+  .post-index-form-control {
+    margin-left: 10px;
+  }
+
+  .post-index-submit-button {
+    float: left;
+    margin-left: 10px;
+  }
+
+  .post-btn-danger {
+    float: right;
+    color: #90916A;
+  }
+  
+}
+
