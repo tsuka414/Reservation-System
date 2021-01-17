@@ -1,0 +1,29 @@
+<div class="book-record-index">
+  <h1><%= l @first_day, format: :short %>~<%= l @last_day, format: :day %>までの予約状況</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+      <th class="col-md-1"><%= BookRecord.human_attribute_name :date %></th>
+        <th class="col-md-2"><%= BookRecord.human_attribute_name :name %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :number %></th>
+        <th class="col-md-2"><%= BookRecord.human_attribute_name :contact %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :category %></th>
+        <th class="col-md-3"><%= BookRecord.human_attribute_name :comment %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :writer %></th>
+      </tr>
+    </thead>
+
+    <% @book_records.each do |book_record| %>
+      <tr>
+        <td><%= l book_record.record_date, format: :short %><%= l book_record.started_at, format: :time %></td>
+        <td><%= book_record.name %></td>
+        <td><%= book_record.number %></td>
+        <td><%= book_record.contact %></td>
+        <td><%= book_record.category %></td>
+        <td><%= book_record.comment %></td>
+        <td><%= book_record.writer %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
