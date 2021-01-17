@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_010445) do
+ActiveRecord::Schema.define(version: 2021_01_17_043128) do
 
   create_table "book_records", force: :cascade do |t|
     t.integer "direction"
@@ -35,6 +35,22 @@ ActiveRecord::Schema.define(version: 2020_12_13_010445) do
     t.string "name"
     t.string "color"
     t.integer "user_id"
+  end
+
+  create_table "change_histories", force: :cascade do |t|
+    t.string "category"
+    t.text "comment"
+    t.string "contact"
+    t.integer "number"
+    t.time "started_at"
+    t.time "finished"
+    t.string "name"
+    t.date "record_date"
+    t.string "writer"
+    t.integer "record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "physicaldeletion", default: false, null: false
   end
 
   create_table "daily_balances", force: :cascade do |t|

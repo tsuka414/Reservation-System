@@ -25,6 +25,8 @@ class BookRecordsController < ApplicationController
 
   def update
     @book_record = BookRecord.find(params[:id])
+    set_history(@book_record.name, @book_record.category, @book_record.number, @book_record.record_date,@book_record.comment, 
+                @book_record.started_at, @book_record.writer, @book_record.contact, @book_record.id)
     if @book_record.update_attributes(book_record_params)
       flash[:success] = '予約情報を更新しました。'
       redirect_to(book_records_path(params: {date: @book_record.record_date}))
@@ -35,7 +37,10 @@ class BookRecordsController < ApplicationController
 
   def destroy
     #reduce_daily_balance(@book_record)
+    set_history(@book_record.name, @book_record.category, @book_record.number, @book_record.record_date,@book_record.comment, 
+                @book_record.started_at, @book_record.writer, @book_record.contact, @book_record.id)
     @book_record.destroy
+    @chengehistory.update_attributes(physicaldeletion: true)
     flash[:success] = "予約を削除しました。"
     redirect_back(fallback_location: root_path)
   end
@@ -50,6 +55,12 @@ class BookRecordsController < ApplicationController
 
   def set_book_record
     @book_record = BookRecord.find(params[:id])
+  end
+
+  def set_history(name, category, number, record_date, comment, started_at, writer, contact, record_id)
+    @chengehistory = ChangeHistory.new(name: name, category: category, number: number, record_date: record_date,
+                                      comment: comment, started_at: started_at, writer: writer, contact: contact, record_id: record_id)
+    @chengehistory.save
   end
 
   # book_record.record_dateとcurrent_user.idの複合キーを持つレコードがDailyBalanceモデル上に存在しない場合、

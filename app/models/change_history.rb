@@ -1,0 +1,2 @@
+class ChangeHistory < ApplicationRecord
+end
