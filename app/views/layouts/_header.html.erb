@@ -15,6 +15,7 @@
     <nav>
       <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
         <% if logged_in? %>
+            <li><%= link_to "変更履歴", change_histories_path %></li>
             <li><%= link_to "掲示板", posts_path %>
             <li><%= link_to "設定", edit_user_path(@current_user) %></li>
             <li><%= link_to "ログアウト", logout_path, method: :delete %></li>

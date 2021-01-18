@@ -37,6 +37,22 @@ ActiveRecord::Schema.define(version: 2020_12_13_010445) do
     t.integer "user_id"
   end
 
+  create_table "change_histories", force: :cascade do |t|
+    t.string "category"
+    t.text "comment"
+    t.string "contact"
+    t.integer "number"
+    t.time "started_at"
+    t.time "finished"
+    t.string "name"
+    t.date "record_date"
+    t.string "writer"
+    t.integer "record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "physicaldeletion", default: false, null: false
+  end
+
   create_table "daily_balances", force: :cascade do |t|
     t.integer "expenditure"
     t.integer "income"

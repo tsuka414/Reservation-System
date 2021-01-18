@@ -1,0 +1,46 @@
+<div class="book-record-index">
+  <h1>変更履歴</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-md-1"></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :date %></th>
+        <th class="col-md-2"><%= BookRecord.human_attribute_name :name %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :number %></th>
+        <th class="col-md-2"><%= BookRecord.human_attribute_name :contact %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :category %></th>
+        <th class="col-md-3"><%= BookRecord.human_attribute_name :comment %></th>
+        <th class="col-md-1"><%= BookRecord.human_attribute_name :writer %></th>
+      </tr>
+    </thead>
+
+    <% @change_histories.each do |record| %>
+      <tr>
+        <td><%= record.physicaldeletion ? "削除前" : "変更前" %></td>
+        <td><%= l record.record_date, format: :short %><%= l record.started_at, format: :time %></td>
+        <td><%= record.name %></td>
+        <td><%= record.number %></td>
+        <td><%= record.contact %></td>
+        <td><%= record.category %></td>
+        <td><%= record.comment %></td>
+        <td><%= record.writer %></td>
+        <td><%= link_to  "削除", record, method: :delete,
+                data: { confirm: "削除してもよろしいですか？。" } %></td>
+      </tr>
+      <% unless record.physicaldeletion %>
+      <% book_record = BookRecord.find(record.record_id) %>
+        <tr>
+          <td>変更後</td>
+          <td><%= l book_record.record_date, format: :short %><%= l book_record.started_at, format: :time %></td>
+          <td><%= book_record.name if book_record %></td>
+          <td><%= book_record.number if book_record %></td>
+          <td><%= book_record.contact if book_record %></td>
+          <td><%= book_record.category if book_record %></td>
+          <td><%= book_record.comment if book_record %></td>
+          <td><%= book_record.writer  if book_record%></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</div>

@@ -13,6 +13,7 @@ ja:
         category: カテゴリー
         contact: 連絡先
         time: 予約時間
+        date: 日時
         comment: 備考
         writer: 記入者
   time:
@@ -21,3 +22,11 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
       time: "%H:%M"
+      day: "%-m月%-d日"
+  date:
+    formats:
+      default: "%-m月"
+      day: "%-d日"
+      long: "%Y年%m月%d日(%a)"
+      middle: "%-m/%d"
+      short: "%-m月%-d日"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'change_histories/index'
   get 'daily_balances/show'
   # static_pages
   get "/home",  to: "static_pages#home"
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
 
   # book_records
   resources :book_records, :except => :new
+
+  resources :change_histories, only: %i[destroy index]
 
   # post
   resources :posts, only: %i[create destroy index]

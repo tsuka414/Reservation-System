@@ -1,55 +1,114 @@
 <div class="book-record-form-on-sidebar">
   <div class="book-record-form">
-    <%= form_for(:book_record, url: yield(:url_text), method: yield(:method_text)) do |f| %>
-      <div class="book-record-border">
-        <div class="direction-radio">
-          <label><%= f.radio_button :direction, 0, :checked => "checked" %> 予約</label>
-        </div>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a href="#tab_a" class="nav-link" data-toggle="tab">予約</a>
+      </li>
+      <li class="nav-item">
+        <a href="#tab_b" class="nav-link" data-toggle="tab">配達</a>
+      </li>
+    </ul>
 
-        <div class="record-date-field">
-          <%= f.label :record_date, "日付", class: "book-record-#{yield(:class_text)}" %>
-          <%= f.date_select :record_date, default: Time.zone.now, class: "book-record-#{yield(:class_text)}" %>
-        </div>
+    <div class="tab-content">     
+      <div id="tab_a" class="tab-pane active">
+        <%= form_for(:book_record, url: yield(:url_text), method: yield(:method_text)) do |f| %>
+          <div class="book-record-border">
 
-        <div class="category-select">
-          <%= f.label :category, "カテゴリ", class: "book-record-#{yield(:class_text)}" %>
-          <%= f.hidden_field :category, :value => 0 %>
-          <%= f.select :category, Category.where("(user_id = ?) OR (user_id = ?)", 0, current_user.id).map { |category| [category.name] } %>
-        </div>
+            <div class="record-date-field">
+              <%= f.label :record_date, "日付", class: "book-record-#{yield(:class_text)}" %>
+              <%= f.date_select :record_date, default: Time.zone.now, class: "book-record-#{yield(:class_text)}" %>
+            </div>
 
-        <div class="amount-number-field">
-          <%= f.label :name, "予約者名(必須)", class: "book-record-#{yield(:class_text)}" %><br>
-          <%= f.text_field :name, class: "book-record-#{yield(:class_text)}" %>
-        </div>
+            <div class="category-select">
+              <%= f.label :category, "カテゴリ", class: "book-record-#{yield(:class_text)}" %>
+              <%= f.hidden_field :category, :value => 0 %>
+              <%= f.select :category, Category.where("(user_id = ?) OR (user_id = ?)", 0, current_user.id).map { |category| [category.name] } %>
+            </div>
 
-        <div class="amount-number-field">
-          <%= f.label :number, "予約人数(必須)", class: "book-record-#{yield(:class_text)}" %><br>
-          <%= f.number_field :number, class: "book-record-#{yield(:class_text)}" %>
-        </div>
+            <div class="amount-number-field">
+              <%= f.label :name, "予約者名(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.text_field :name, class: "book-record-#{yield(:class_text)}" %>
+            </div>
 
-        <div class="amount-number-field">
-          <%= f.label :started_at, "予約開始時間(必須)", class: "book-record-#{yield(:class_text)}" %> 〜
-          <%= f.label :finished_at, "予約終了時間", class: "book-record-#{yield(:class_text)}" %><br>
-          <%= f.time_field :started_at, class: "book-record-#{yield(:class_text)}" %> 〜
-          <%= f.time_field :finished_at, class: "book-record-#{yield(:class_text)}" %>
-        </div>
+            <div class="amount-number-field">
+              <%= f.label :number, "予約人数(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.number_field :number, class: "book-record-#{yield(:class_text)}" %>
+            </div>
 
-        <div class="amount-number-field">
-          <%= f.label :contact, "連絡先(必須)", class: "book-record-#{yield(:class_text)}" %><br>
-          <%= f.text_field :contact, class: "book-record-#{yield(:class_text)}" %>
-        </div>
+            <div class="amount-number-field">
+              <%= f.label :started_at, "予約開始時間(必須)", class: "book-record-#{yield(:class_text)}" %> 〜
+              <%= f.label :finished_at, "予約終了時間", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.time_field :started_at, class: "book-record-#{yield(:class_text)}" %> 〜
+              <%= f.time_field :finished_at, class: "book-record-#{yield(:class_text)}" %>
+            </div>
 
-        <div class="comment-field">
-          <%= f.label :comment, "備考欄", class: "book-record-#{yield(:class_text)}" %><br>
-          <%= f.text_area :comment, class: "book-record-#{yield(:class_text)}", size:20*3 %>
-        </div>
+            <div class="amount-number-field">
+              <%= f.label :contact, "連絡先(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.text_field :contact, class: "book-record-#{yield(:class_text)}" %>
+            </div>
 
-        <div class="comment-field">
-          <%= f.label :writer, "記入者(必須)", class: "book-record-#{yield(:class_text)}" %><br>
-          <%= f.text_field :writer, class: "book-record-#{yield(:class_text)}" %>
-        </div>
+            <div class="comment-field">
+              <%= f.label :comment, "備考欄", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.text_area :comment, class: "book-record-#{yield(:class_text)}", size:20*3 %>
+            </div>
+
+            <div class="comment-field">
+              <%= f.label :writer, "記入者(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.text_field :writer, class: "book-record-#{yield(:class_text)}" %>
+            </div>
+          </div>
+          <%= f.submit yield(:button_text), class: "btn btn-primary book-record-#{yield(:submit_text)}" %>
+        <% end %>
       </div>
-      <%= f.submit yield(:button_text), class: "btn btn-primary book-record-#{yield(:submit_text)}" %>
-    <% end %>
+
+      <div id="tab_b" class="tab-pane">
+        <%= form_for(:book_record, url: yield(:url_text), method: yield(:method_text)) do |f| %>
+          <div class="book-record-border">
+
+            <div class="record-date-field">
+              <%= f.label :record_date, "日付", class: "book-record-#{yield(:class_text)}" %>
+              <%= f.date_select :record_date, default: Time.zone.now, class: "book-record-#{yield(:class_text)}" %>
+            </div>
+
+            <div class="category-select">
+              <%= f.label :category, "カテゴリ", class: "book-record-#{yield(:class_text)}" %>
+              <%= f.hidden_field :category, :value => 0 %>
+              <%= f.select :category, Category.where("(user_id = ?) OR (user_id = ?)", 0, current_user.id).map { |category| [category.name] } %>
+            </div>
+
+            <div class="amount-number-field">
+              <%= f.label :name, "配達先(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.text_field :name, class: "book-record-#{yield(:class_text)}" %>
+            </div>
+
+            <div class="amount-number-field">
+              <%= f.label :number, "予約人数(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.number_field :number, class: "book-record-#{yield(:class_text)}" %>
+            </div>
+
+            <div class="amount-number-field">
+              <%= f.label :started_at, "配達時間(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.time_field :started_at, class: "book-record-#{yield(:class_text)}" %>
+            </div>
+
+            <div class="amount-number-field">
+              <%= f.label :contact, "連絡先(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.text_field :contact, class: "book-record-#{yield(:class_text)}" %>
+            </div>
+
+            <div class="comment-field">
+              <%= f.label :comment, "配達者・備考欄", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.text_area :comment, class: "book-record-#{yield(:class_text)}", size:20*3 %>
+            </div>
+
+            <div class="comment-field">
+              <%= f.label :writer, "記入者(必須)", class: "book-record-#{yield(:class_text)}" %><br>
+              <%= f.text_field :writer, class: "book-record-#{yield(:class_text)}" %>
+            </div>
+          </div>
+          <%= f.submit yield(:button_text), class: "btn btn-primary book-record-#{yield(:submit_text)}" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
