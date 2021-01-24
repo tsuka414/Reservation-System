@@ -11,22 +11,24 @@
 
     /* home page */
   .signup-button {
-    background-color: rgb(15, 1, 1);
-    border-color: white;
-    color: white;
-    &:hover {
-      background-color: white;
-      color: white;
+  background-color: #a0d8ef;
+  padding: 6px 12px;
+  text-align: center;
+  border-radius: 15px;
+  border: 3px solid #a0d8ef;
+  width: 80%;
+  margin: 10px 0 10px 24px;
+  font-size: 18px;
+  color: #007bbb;
+  &:hover {
+  background-color: #ffebf2;
+  color: #dc5583;
     }
   }
 
   .home-jumbotron {
     background-color: rgba(50,50,50,0.9);
     color: white;
-
-    .sample-login {
-      margin-top: 20px;
-    }
   }
 }
 

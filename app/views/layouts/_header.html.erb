@@ -19,6 +19,7 @@
             <li><%= link_to "掲示板", posts_path %>
             <li><%= link_to "設定", edit_user_path(@current_user) %></li>
             <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+            <li><%= link_to "職員新規登録", signup_path %></li>
         <% else %>
           <li class="navlist"><%= link_to "ログイン", "/login", class: "header-login" %></li>
         <% end %>

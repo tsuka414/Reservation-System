@@ -1,25 +1,23 @@
-<% provide(:title, '新規会員登録') %>
-<div class="signup-title">
-  新規会員登録
-</div>
+<% provide(:title, '新規職員登録') %>
+<div class="signup-title">新規職員登録</div>
 <div class="row">
   <div class="col-md-6 col-md-offset-3 signup-form">
     <%= form_for(@user, url: signup_path) do |f| %>
       <%= render("shared/error_messages") %>
 
-      <%= f.label :name, "ユーザー名(必須項目)"%>
+      <%= f.label :name, "職員名(必須項目)"%>
       <%= f.text_field :name, class: "form-control" %>
 
       <%= f.label :email, "メールアドレス(必須項目)" %>
       <%= f.email_field :email, class: "form-control" %>
-
+      
       <%= f.label :password, "パスワード(必須項目)" %>
       <%= f.password_field :password, class: "form-control" %>
 
       <%= f.label :password_confirmation, "パスワードの確認(必須項目)" %>
       <%= f.password_field :password_confirmation, class: "form-control" %>
 
-      <%= f.submit "会員登録", class: "btn signup-button" %>
+　　　 <%= f.submit "職員登録", class: "btn signup-button" %>
     <% end %>
   </div>
 </div>
