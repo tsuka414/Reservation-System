@@ -28,7 +28,7 @@ gem 'jbuilder', '2.9.1'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '3.1.13'
 # 画像投稿(header, profile)
-gem 'carrierwave', '2.0.1'
+gem 'carrierwave', '2.1.1'
 gem 'mini_magick', '4.9.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '1.4.5', require: false
